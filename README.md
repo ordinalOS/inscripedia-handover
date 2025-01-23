@@ -10,25 +10,25 @@ This package provides an interactive 3D book viewing experience with multiple mo
 
 ## File Structure
 
-├── EPUB-ORDINAL/
-│   ├── ordinal-view.html
-│   ├── wrapper-preview.html
-│   ├── read.html
-│   ├── read.css
-│   ├── docs.html
-│   ├── zip.min.js
-│   ├── ordinal/
-│   │   ├── reader-ordinal.html
-│   │   ├── reader-ordinal-min.html
-│   │   └── wrapper-ordinal-min.html
-│   ├── content/
-│   │   ├── book-inscripedia.glb
-│   │   ├── gift-inscripedia.glb
-│   │   └── cover[1-5].jpg
-│   └── V1/
-│       ├── epub-v1.html
-│       ├── test.epub
-│       └── zip.min.js
+EPUB-ORDINAL/
+├── ordinal-view.html
+├── wrapper-preview.html
+├── read.html
+├── read.css
+├── docs.html
+├── zip.min.js
+├── ordinal/
+│   ├── reader-ordinal.html
+│   ├── reader-ordinal-min.html
+│   └── wrapper-ordinal-min.html
+├── content/
+│   ├── book-inscripedia.glb
+│   ├── gift-inscripedia.glb
+│   └── cover[1-5].jpg
+└── V1/
+   ├── epub-v1.html
+   ├── test.epub
+   └── zip.min.js
 
 ## Key Features
 - 3D Book & Gift Models
