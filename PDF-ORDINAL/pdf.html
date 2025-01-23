@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>A CHRISTMAS CAROL</title>
-  <link rel="stylesheet" href="read.css">
+  <title>PDF READER</title>
+  <link rel="stylesheet" href="pdf.css">
 </head>
 <body>
   <div id="content">
     <div id="sidebar">
-      <input type="file" accept=".epub" id="fileInput"/>
+      <input type="file" accept=".pdf" id="fileInput"/>
       <div id="meta"></div>
       <div id="debug"></div>
       <div id="toc"></div>
@@ -17,7 +17,7 @@
     <div id="reader">
       <div id="reader-content">
         <div class="upload-area">
-          <input type="file" accept=".epub" id="mainFileInput" style="display:none"/>
+          <input type="file" accept=".pdf" id="mainFileInput" style="display:none"/>
         </div>
         <div id="chapters"></div>
       </div>
@@ -55,92 +55,156 @@
     <button class="nav-button next" onclick="nextPage()">❯</button>
   </div>
   <script src="https://ordinals.com/content/372c5388030820daed356d25d7a1218d0b88d78a6d051d27c91d0f25ac4c3c5ei0"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
   <script>
-async function readEpub(blob) {
-  const zip = new JSZip();
-  await zip.loadAsync(blob);
+async function readPdf(blob) {
+  // Initialize PDF.js
+  const pdfjsLib = window['pdfjs-dist/build/pdf'];
+  pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
   
-  console.log("Files in ZIP:", Object.keys(zip.files));
-  
-  // Get metadata from OPF
-  const container = await zip.file("META-INF/container.xml").async("text");
-  const opfPath = container.match(/full-path="([^"]+)"/)?.[1];
-  if (!opfPath) throw new Error("Invalid EPUB");
-  
-  const opf = await zip.file(opfPath).async("text");
-  const parser = new DOMParser();
-  const doc = parser.parseFromString(opf, "text/xml");
-
-  // Get metadata
-  const meta = {};
-  ["title", "creator", "language", "date", "identifier"].forEach(tag => {
-    meta[tag] = doc.querySelector(`dc\\:${tag}, ${tag}`)?.textContent?.trim();
-  });
-
-  // Find all HTML/XHTML files in the ZIP
-  const allFiles = Object.keys(zip.files);
-  console.log("All files:", allFiles);
-
-  const htmlFiles = allFiles.filter(path => 
-    path.match(/\.(x?html?|htm)$/i) && 
-    !path.startsWith('__MACOSX') &&
-    !zip.files[path].dir
-  );
-  console.log("HTML files found:", htmlFiles);
-
-  // Load all HTML files as chapters
-  const chapters = [];
-  for (const path of htmlFiles) {
-    try {
-      const content = await zip.file(path).async("text");
-      if (content && content.trim()) {
-        console.log(`Content found in ${path}, length: ${content.length}`);
-        chapters.push({
-          id: path,
-          content: content
-        });
-      }
-    } catch (err) {
-      console.error(`Error loading ${path}:`, err);
-    }
-  }
-
-  // If no HTML files found, try XML files
-  if (chapters.length === 0) {
-    const xmlFiles = allFiles.filter(path => 
-      path.match(/\.xml$/i) && 
-      !path.startsWith('__MACOSX') &&
-      !path.includes('container.xml') &&
-      !zip.files[path].dir
-    );
+  try {
+    const pdf = await pdfjsLib.getDocument({data: await blob.arrayBuffer()}).promise;
+    console.log("PDF loaded, pages:", pdf.numPages);
     
-    for (const path of xmlFiles) {
-      try {
-        const content = await zip.file(path).async("text");
-        if (content && content.trim()) {
-          console.log(`Content found in ${path}, length: ${content.length}`);
-          chapters.push({
-            id: path,
-            content: content
-          });
-        }
-      } catch (err) {
-        console.error(`Error loading ${path}:`, err);
-      }
+    // Get metadata
+    const metadata = await pdf.getMetadata();
+    const meta = {
+      title: metadata.info?.Title || "Document",
+      creator: metadata.info?.Author || "Unknown Author",
+      inscriber: metadata.info?.Producer || "Unknown Producer",
+      language: metadata.info?.Language || "en",
+      identifier: metadata.info?.Creator || ""
+    };
+
+    // Load all pages as chapters
+    const chapters = [];
+    for (let i = 1; i <= pdf.numPages; i++) {
+      const page = await pdf.getPage(i);
+      const viewport = page.getViewport({scale: 1.5});
+      
+      // Create canvas for rendering
+      const canvas = document.createElement('canvas');
+      const context = canvas.getContext('2d');
+      canvas.height = viewport.height;
+      canvas.width = viewport.width;
+      
+      // Render page to canvas
+      await page.render({
+        canvasContext: context,
+        viewport: viewport
+      }).promise;
+      
+      // Convert canvas to image
+      const content = `<img src="${canvas.toDataURL()}" style="width:100%; height:auto;" alt="Page ${i}"/>`;
+      
+      chapters.push({
+        id: `page-${i}`,
+        content: content
+      });
     }
+
+    // Create TOC from pages
+    const toc = chapters.map((ch, i) => ({
+      id: ch.id,
+      title: `Page ${i + 1}`,
+      src: null
+    }));
+
+    return { meta, chapters, toc, css: [] };
+  } catch (err) {
+    console.error("Error loading PDF:", err);
+    throw err;
   }
+}
 
-  console.log(`Total chapters found: ${chapters.length}`);
+// Update loadEpub to loadPdf
+async function loadPdf(file) {
+  try {
+    const epub = await readPdf(file);
+    els.uploadArea.classList.add('hidden');
+    
+    // Override metadata with hardcoded values
+    epub.meta.title = "A CHRISTMAS CAROL";
+    epub.meta.creator = "DICKENS, CHARLES";
+    epub.meta.inscriber = "INSCRIPEDIA";
+    delete epub.meta.date;
+    
+    // Define display order
+    const displayOrder = ['title', 'creator', 'inscriber', 'language', 'identifier'];
+    
+    // Update metadata display with custom labels
+    const metaContent = displayOrder
+      .filter(k => epub.meta[k])
+      .map(k => `
+        <div class="meta-item">
+          <div class="meta-label">${k === 'creator' ? 'AUTHOR' : k === 'inscriber' ? 'PUBLISHER' : k.toUpperCase()}</div>
+          <div class="meta-value">${epub.meta[k]}</div>
+        </div>
+      `).join('');
+    
+    els.meta.innerHTML = metaContent;
+    document.getElementById('book-meta').innerHTML = metaContent;
+    
+    els.debug.textContent = `Loaded ${epub.chapters.length} chapters`;
+    
+    els.toc.innerHTML = epub.toc
+      .map((item, i) => `<div class="toc-item" onclick="showChapter(${i})">${item.title}</div>`)
+      .join('');
 
-  // Create simple TOC
-  const toc = chapters.map((ch, i) => ({
-    id: ch.id,
-    title: `Chapter ${i + 1}`,
-    src: null
-  }));
+    els.chapters.innerHTML = epub.chapters
+      .map(ch => `<div class="chapter">${ch.content}</div>`)
+      .join('');
 
-  return { meta, chapters, toc, css: [] };
-}  
+    totalChapters = epub.chapters.length;
+    
+    // Default to book mode on load
+    els.reader.classList.add('book-mode');
+    els.chapters.classList.add('book-mode');
+    document.querySelector('.nav-button.book').classList.add('active');
+    convertToPages();
+    
+    showChapter(0);
+    
+    document.onkeydown = e => {
+      if (e.key === 'ArrowRight') nextPage();
+      if (e.key === 'ArrowLeft') prevPage();
+    };
+  } catch (err) {
+    els.debug.textContent = `Error: ${err.message}`;
+    console.error(err);
+  }
+}
+
+// Update auto-load to use local PDF
+window.addEventListener('load', async () => {
+  try {
+    const spinner = document.getElementById('loading-spinner');
+    spinner.style.display = 'flex';
+    els.uploadArea.classList.add('hidden');
+    
+    // Load local PDF file
+    const response = await fetch('./content/document.pdf');
+    
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    
+    const blob = await response.blob();
+    await loadPdf(blob);
+    
+    // Match system dark mode preference
+    const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+    document.body.classList.toggle('light', prefersLight);
+    
+    spinner.style.display = 'none';
+  } catch (err) {
+    const spinner = document.getElementById('loading-spinner');
+    spinner.style.display = 'none';
+    els.uploadArea.classList.remove('hidden');
+    els.debug.textContent = `Error loading PDF: ${err.message}`;
+    console.error('PDF loading error:', err);
+  }
+});
   </script>
   <script>
     // Add font size control
@@ -305,67 +369,16 @@ async function readEpub(blob) {
     els.uploadArea.ondrop = e => {
       e.preventDefault();
       const file = e.dataTransfer.files[0];
-      if (file) loadEpub(file);
+      if (file && file.type === 'application/pdf') loadPdf(file);
     };
-    els.mainFileInput.onchange = e => loadEpub(e.target.files[0]);
-    els.fileInput.onchange = e => loadEpub(e.target.files[0]);
-
-    async function loadEpub(file) {
-      try {
-        const epub = await readEpub(file);
-        els.uploadArea.classList.add('hidden');
-        
-        // Override metadata with hardcoded values
-        epub.meta.title = "A CHRISTMAS CAROL";
-        epub.meta.creator = "DICKENS, CHARLES";
-        epub.meta.inscriber = "INSCRIPEDIA";
-        delete epub.meta.date;
-        
-        // Define display order
-        const displayOrder = ['title', 'creator', 'inscriber', 'language', 'identifier'];
-        
-        // Update metadata display with custom labels
-        const metaContent = displayOrder
-          .filter(k => epub.meta[k])
-          .map(k => `
-            <div class="meta-item">
-              <div class="meta-label">${k === 'creator' ? 'AUTHOR' : k === 'inscriber' ? 'PUBLISHER' : k.toUpperCase()}</div>
-              <div class="meta-value">${epub.meta[k]}</div>
-            </div>
-          `).join('');
-        
-        els.meta.innerHTML = metaContent;
-        document.getElementById('book-meta').innerHTML = metaContent;
-        
-        els.debug.textContent = `Loaded ${epub.chapters.length} chapters`;
-        
-        els.toc.innerHTML = epub.toc
-          .map((item, i) => `<div class="toc-item" onclick="showChapter(${i})">${item.title}</div>`)
-          .join('');
-
-        els.chapters.innerHTML = epub.chapters
-          .map(ch => `<div class="chapter">${ch.content}</div>`)
-          .join('');
-
-        totalChapters = epub.chapters.length;
-        
-        // Default to book mode on load
-        els.reader.classList.add('book-mode');
-        els.chapters.classList.add('book-mode');
-        document.querySelector('.nav-button.book').classList.add('active');
-        convertToPages();
-        
-        showChapter(0);
-        
-        document.onkeydown = e => {
-          if (e.key === 'ArrowRight') nextPage();
-          if (e.key === 'ArrowLeft') prevPage();
-        };
-      } catch (err) {
-        els.debug.textContent = `Error: ${err.message}`;
-        console.error(err);
-      }
-    }
+    els.mainFileInput.onchange = e => {
+      const file = e.target.files[0];
+      if (file && file.type === 'application/pdf') loadPdf(file);
+    };
+    els.fileInput.onchange = e => {
+      const file = e.target.files[0];
+      if (file && file.type === 'application/pdf') loadPdf(file);
+    };
 
     // Update book mode toggle function
     function toggleBookMode() {
@@ -540,41 +553,6 @@ async function readEpub(blob) {
       // Reset current page
       currentPage = 0;
     }
-
-    // Auto-load test.epub on page load
-    window.addEventListener('load', async () => {
-      try {
-        const spinner = document.getElementById('loading-spinner');
-        spinner.style.display = 'flex';
-        els.uploadArea.classList.add('hidden');
-        
-        const response = await fetch('https://ordinals.com/content/2d9cecf5e824625aa829835069323aa866d3270318e1edf77cd1be9438dd5323i0');
-        
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        
-        const blob = await response.blob();
-        await loadEpub(blob);
-        
-        // Match system dark mode preference
-        const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
-        document.body.classList.toggle('light', prefersLight);
-        
-        // Listen for system theme changes
-        window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', e => {
-          document.body.classList.toggle('light', e.matches);
-        });
-
-        spinner.style.display = 'none';
-      } catch (err) {
-        const spinner = document.getElementById('loading-spinner');
-        spinner.style.display = 'none';
-        els.uploadArea.classList.remove('hidden');
-        els.debug.textContent = `Error loading .epub: ${err.message}`;
-        console.error('Epub loading error:', err);
-      }
-    });
 
     // Update theme toggle function
     function toggleMenu() {

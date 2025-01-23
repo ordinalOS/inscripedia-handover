@@ -14,8 +14,9 @@ This package provides an interactive 3D book viewing experience with multiple mo
 EPUB-ORDINAL/
 ├── ordinal-view.html     # preview ordinal frame
 ├── wrapper-preview.html  # web2 preview with controls
-├── read.html            # web2 epub reader
-├── read.css            # web2 epub reader styling
+├── epub.html            # web2 epub reader
+├── epub
+.css            # web2 epub reader styling
 ├── docs.html           # wrapper ordinal generator
 ├── zip.min.js          # File compression for EPUB handling
 │
