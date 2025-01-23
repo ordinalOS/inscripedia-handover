@@ -124,9 +124,9 @@ async function loadPdf(file) {
     els.uploadArea.classList.add('hidden');
     
     // Override metadata with hardcoded values
-    epub.meta.title = "A CHRISTMAS CAROL";
-    epub.meta.creator = "DICKENS, CHARLES";
-    epub.meta.inscriber = "INSCRIPEDIA";
+    epub.meta.title = "";
+    epub.meta.creator = "";
+    epub.meta.inscriber = "";
     delete epub.meta.date;
     
     // Define display order
