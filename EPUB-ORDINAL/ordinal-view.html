@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <style>
+        html, body {
+            background-color: #000000;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            font-family: -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+            overflow: hidden;
+        }
+        .title {
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 14px;
+            text-transform: lowercase;
+            letter-spacing: 1px;
+            color: #666;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            padding: 0 10px;
+            box-sizing: border-box;
+        }
+        @media (max-width: 480px) {
+            iframe {
+                width: 100% !important;
+                height: 100vw !important;
+                max-width: 450px;
+                max-height: 450px;
+            }
+        }
+        .expand-link {
+            margin-top: 15px;
+            color: #666;
+            text-decoration: none;
+            font-size: 12px;
+            letter-spacing: 0.5px;
+        }
+        .expand-link:hover {
+            color: #999;
+        }
+        .controls {
+            margin-top: 20px;
+            font-size: 11px;
+            color: #999;
+            text-align: center;
+            line-height: 2.2;
+        }
+        .key {
+            color: #666;
+            background: #eee;
+            padding: 2px 4px;
+            border-radius: 3px;
+            margin: 0 2px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="title">ordinal view</div>
+        <iframe src="wrapper-preview.html" width="450" height="450" frameborder="0"></iframe>
+        <a href="wrapper-preview.html" class="expand-link" target="_blank">expand →</a>
+        <div class="controls">
+            <div><span class="key">g</span> change model</div>
+            <div><span class="key">s</span> toggle snow</div>
+            <div><span class="key">1</span><span class="key">2</span><span class="key">3</span><span class="key">4</span><span class="key">5</span> cover options</div>
+        </div>
+    </div>
+</body>
+</html>

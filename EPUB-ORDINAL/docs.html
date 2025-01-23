@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Christmas Carol Documentation</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #1a1a1a;
+            color: #fff;
+        }
+        pre {
+            background: #2d2d2d;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            color: #e6e6e6;
+            position: relative;
+        }
+        pre code {
+            display: block;
+            padding: 20px;
+            padding-right: 200px;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        .copy-button, .download-button, .test-button {
+            position: absolute;
+            top: 15px;
+            padding: 8px 12px;
+            background: #333;
+            border: none;
+            border-radius: 3px;
+            color: #fff;
+            cursor: pointer;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+        }
+        .test-button { right: 160px; }
+        .download-button { right: 85px; }
+        .copy-button { right: 15px; }
+        .copy-button:hover, .download-button:hover, .test-button:hover {
+            opacity: 1;
+        }
+        code {
+            font-family: monospace;
+        }
+        .covers {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .cover {
+            text-align: center;
+            background: #2d2d2d;
+            padding: 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s;
+            position: relative;
+        }
+        .cover:hover {
+            transform: translateY(-5px);
+        }
+        .cover.selected {
+            outline: 2px solid #fff;
+        }
+        .cover img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        .blockheight-info {
+            background: #2d2d2d;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .height-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .height-label {
+            min-width: 120px;
+            color: #999;
+        }
+        .height-value {
+            background: #333;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+        .blockheight-control {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            background: #333;
+            border-radius: 4px;
+            padding: 2px;
+        }
+        .blockheight-btn {
+            background: #444;
+            border: none;
+            color: #fff;
+            width: 32px;
+            height: 32px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+        .blockheight-btn:hover {
+            background: #555;
+        }
+        .blockheight-input {
+            background: transparent;
+            border: none;
+            color: #fff;
+            padding: 5px;
+            width: 100px;
+            text-align: center;
+            font-size: 16px;
+            font-family: monospace;
+        }
+        .blockheight-input::-webkit-inner-spin-button,
+        .blockheight-input::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        @media (max-width: 1200px) {
+            .covers {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            }
+        }
+        .collection-generator {
+            background: #2d2d2d;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .generator-row, .rarity-row {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        .generator-row label, .rarity-row label {
+            min-width: 150px;
+            color: #999;
+        }
+        .generator-row input, .rarity-row input {
+            background: #333;
+            border: none;
+            color: #fff;
+            padding: 8px 12px;
+            border-radius: 4px;
+            width: 120px;
+            font-family: monospace;
+        }
+        .rarity-inputs {
+            margin: 20px 0;
+        }
+        .generate-btn {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.2s;
+        }
+        .generate-btn:hover {
+            background: #45a049;
+        }
+        .generation-log {
+            margin-top: 20px;
+            background: #333;
+            padding: 15px;
+            border-radius: 4px;
+        }
+        .generation-log pre {
+            margin: 0;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            color: #ddd;
+        }
+    </style>
+</head>
+<body>
+    <h2>Book Cover Selection</h2>
+    <p>Click a cover to select it:</p>
+    
+    <div class="covers">
+        <div class="cover selected" data-cover="1">
+            <img src="https://ordinals.com/content/de5522fb39e3030637225ce7712e3a52aa3d1853659594da9f7debc0ca156f32i2" alt="Cover 1">
+            <p>Cover 1</p>
+        </div>
+        <div class="cover" data-cover="2">
+            <img src="https://ordinals.com/content/9ab6475ee3e041af88abfe02fc9a17d92045f107a931c647fde49394ad96c311i0" alt="Cover 2">
+            <p>Cover 2</p>
+        </div>
+        <div class="cover" data-cover="3">
+            <img src="https://ordinals.com/content/9ab6475ee3e041af88abfe02fc9a17d92045f107a931c647fde49394ad96c311i1" alt="Cover 3">
+            <p>Cover 3</p>
+        </div>
+        <div class="cover" data-cover="4">
+            <img src="https://ordinals.com/content/de5522fb39e3030637225ce7712e3a52aa3d1853659594da9f7debc0ca156f32i1" alt="Cover 4">
+            <p>Cover 4</p>
+        </div>
+        <div class="cover" data-cover="5">
+            <img src="https://ordinals.com/content/de5522fb39e3030637225ce7712e3a52aa3d1853659594da9f7debc0ca156f32i0" alt="Cover 5">
+            <p>Cover 5</p>
+        </div>
+    </div>
+
+    <h2>Blockheight Setting</h2>
+    <div class="blockheight-info">
+        <div class="height-row">
+            <span class="height-label">Current Height:</span>
+            <span class="height-value" id="current-height">Loading...</span>
+        </div>
+        <div class="height-row">
+            <span class="height-label">Unwrap Height:</span>
+            <div class="blockheight-control">
+                <button class="blockheight-btn" id="decrease">-</button>
+                <input type="number" id="transition-height" class="blockheight-input" value="0">
+                <button class="blockheight-btn" id="increase">+</button>
+            </div>
+        </div>
+    </div>
+
+    <h2>Ordinal Code</h2>
+    <pre><code id="ordinal-code">&lt;!DOCTYPE html&gt;&lt;html lang="en"&gt;&lt;head&gt;&lt;meta charset="utf-8"/&gt;&lt;meta name="viewport" content="width=device-width,initial-scale=1"/&gt;&lt;title&gt;A Christmas Carol&lt;/title&gt;&lt;/head&gt;&lt;body&gt;&lt;script&gt;
+window.wrap=1;window.cover=1;const h=875844;async function g(){try{return parseInt(await(await fetch("/r/blockheight")).text())}catch{return null}}async function u(){let b=await g();b!==null&&(window.wrap=b>=h?0:1)}window.onload=async()=>{await u();fetch('/content/e5d4a6f4d1bd568e787dca6d83bb4dc6afa3b8bcca068ff0acd35a19c2c04fafi0').then(r=>r.text()).then(h=>{document.open();document.write(h);document.close()})};setInterval(u,1e4)
+&lt;/script&gt;&lt;/body&gt;&lt;/html&gt;</code><button class="test-button">Test</button><button class="download-button">Download</button><button class="copy-button">Copy</button></pre>
+
+    <h2>Collection Generator</h2>
+    <div class="collection-generator">
+        <div class="generator-row">
+            <label>Collection Size:</label>
+            <input type="number" id="collection-size" min="1" value="333">
+        </div>
+        
+        <div class="generator-row">
+            <label>Unwrap Block Height:</label>
+            <input type="number" id="collection-height" value="875844">
+        </div>
+
+        <h3>Rarity Distribution</h3>
+        <div class="rarity-inputs">
+            <div class="rarity-row">
+                <label>Cover 1:</label>
+                <input type="number" data-cover="1" min="0" value="0">
+            </div>
+            <div class="rarity-row">
+                <label>Cover 2:</label>
+                <input type="number" data-cover="2" min="0" value="0">
+            </div>
+            <div class="rarity-row">
+                <label>Cover 3:</label>
+                <input type="number" data-cover="3" min="0" value="0">
+            </div>
+            <div class="rarity-row">
+                <label>Cover 4:</label>
+                <input type="number" data-cover="4" min="0" value="0">
+            </div>
+            <div class="rarity-row">
+                <label>Cover 5:</label>
+                <input type="number" data-cover="5" min="0" value="0">
+            </div>
+        </div>
+
+        <div class="generator-actions">
+            <button id="generate-collection" class="generate-btn">Generate Collection</button>
+        </div>
+
+        <div id="generation-log" class="generation-log" style="display: none;">
+            <h3>Generation Report</h3>
+            <pre id="log-content"></pre>
+        </div>
+    </div>
+
+    <script>
+        let selectedCover = 1;
+        let currentCode = document.getElementById('ordinal-code').textContent;
+        let heightInitialized = false;
+
+        // Cover selection
+        document.querySelectorAll('.cover').forEach(cover => {
+            cover.addEventListener('click', () => {
+                document.querySelectorAll('.cover').forEach(c => c.classList.remove('selected'));
+                cover.classList.add('selected');
+                selectedCover = cover.dataset.cover;
+                updateCode();
+            });
+        });
+
+        // Update code based on selections
+        function updateCode() {
+            const codeElement = document.getElementById('ordinal-code');
+            let newCode = currentCode.replace(
+                /window\.cover=\d+/,
+                `window.cover=${selectedCover}`
+            );
+            const transitionHeight = document.getElementById('transition-height').value;
+            newCode = newCode.replace(
+                /h=\d+/,
+                `h=${transitionHeight}`
+            );
+            codeElement.textContent = newCode;
+            currentCode = newCode;
+        }
+
+        // Blockheight input handler
+        document.getElementById('transition-height').addEventListener('input', updateCode);
+
+        // Fetch current Bitcoin block height
+        async function fetchCurrentBlockHeight() {
+            try {
+                const response = await fetch('https://mempool.space/api/blocks/tip/height');
+                const height = await response.text();
+                document.getElementById('current-height').textContent = height;
+                
+                // Initialize the unwrap height only once
+                if (!heightInitialized) {
+                    const unwrapInput = document.getElementById('transition-height');
+                    unwrapInput.value = height;
+                    heightInitialized = true;
+                    updateCode(); // Update the code with the initial height
+                }
+            } catch (error) {
+                document.getElementById('current-height').textContent = 'Error fetching';
+            }
+        }
+
+        // Call immediately and set up interval
+        fetchCurrentBlockHeight();
+        setInterval(fetchCurrentBlockHeight, 60000);
+
+        // Copy button functionality
+        document.querySelector('.copy-button').addEventListener('click', () => {
+            const codeBlock = document.getElementById('ordinal-code');
+            const textToCopy = codeBlock.textContent;
+            
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                const button = document.querySelector('.copy-button');
+                const originalText = button.textContent;
+                button.textContent = 'Copied!';
+                setTimeout(() => {
+                    button.textContent = originalText;
+                }, 1500);
+            });
+        });
+
+        // Download button functionality
+        document.querySelector('.download-button').addEventListener('click', () => {
+            const codeBlock = document.querySelector('.download-button').previousElementSibling.previousElementSibling;
+            const content = codeBlock.textContent;
+            const blob = new Blob([content], { type: 'text/html' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'a-christmas-carol.html';
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+            document.body.removeChild(a);
+            
+            const button = document.querySelector('.download-button');
+            const originalText = button.textContent;
+            button.textContent = 'Downloaded!';
+            setTimeout(() => {
+                button.textContent = originalText;
+            }, 1500);
+        });
+
+        // Test button functionality
+        document.querySelector('.test-button').addEventListener('click', () => {
+            window.open('https://www.ord.io/33633842', '_blank');
+            const button = document.querySelector('.test-button');
+            const originalText = button.textContent;
+            button.textContent = 'Testing!';
+            setTimeout(() => {
+                button.textContent = originalText;
+            }, 1500);
+        });
+
+        // Blockheight controls
+        document.getElementById('increase').addEventListener('click', () => {
+            const input = document.getElementById('transition-height');
+            input.value = parseInt(input.value) + 1;
+            updateCode();
+        });
+
+        document.getElementById('decrease').addEventListener('click', () => {
+            const input = document.getElementById('transition-height');
+            input.value = parseInt(input.value) - 1;
+            updateCode();
+        });
+
+        // Collection Generator Logic
+        document.getElementById('generate-collection').addEventListener('click', async () => {
+            const collectionSize = parseInt(document.getElementById('collection-size').value);
+            const unwrapHeight = parseInt(document.getElementById('collection-height').value);
+            const rarityInputs = document.querySelectorAll('.rarity-row input');
+            
+            // Gather rarity distribution
+            const rarityDistribution = {};
+            let totalQuantity = 0;
+            
+            rarityInputs.forEach(input => {
+                const quantity = parseInt(input.value) || 0;
+                rarityDistribution[input.dataset.cover] = quantity;
+                totalQuantity += quantity;
+            });
+
+            // Validate inputs
+            if (totalQuantity !== collectionSize) {
+                alert(`Total rarity distribution (${totalQuantity}) must equal collection size (${collectionSize})`);
+                return;
+            }
+
+            // Show generation log
+            const logElement = document.getElementById('generation-log');
+            const logContent = document.getElementById('log-content');
+            logElement.style.display = 'block';
+            
+            // Generate collection
+            try {
+                const zip = new JSZip();
+                let report = `Collection Generation Report\n`;
+                report += `========================\n\n`;
+                report += `Collection Size: ${collectionSize}\n`;
+                report += `Unwrap Height: ${unwrapHeight}\n\n`;
+                report += `Rarity Distribution:\n`;
+                
+                for (const [cover, quantity] of Object.entries(rarityDistribution)) {
+                    if (quantity > 0) {
+                        report += `Cover ${cover}: ${quantity} items\n`;
+                        
+                        // Generate files for this cover
+                        for (let i = 0; i < quantity; i++) {
+                            const fileName = `christmas_carol_${cover}_${i + 1}.html`;
+                            const fileContent = document.getElementById('ordinal-code').textContent
+                                .replace(/window\.cover=\d+/, `window.cover=${cover}`)
+                                .replace(/h=\d+/, `h=${unwrapHeight}`);
+                            
+                            zip.file(fileName, fileContent);
+                            report += `Generated: ${fileName}\n`;
+                        }
+                    }
+                }
+
+                // Add report to zip
+                zip.file('generation_report.txt', report);
+                
+                // Generate and download zip
+                zip.generateAsync({type: 'blob'}).then(content => {
+                    const url = window.URL.createObjectURL(content);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'christmas_carol_collection.zip';
+                    document.body.appendChild(a);
+                    a.click();
+                    window.URL.revokeObjectURL(url);
+                    document.body.removeChild(a);
+                });
+
+                // Display report
+                logContent.textContent = report;
+            } catch (error) {
+                logContent.textContent = `Error generating collection: ${error.message}`;
+            }
+        });
+    </script>
+</body>
+</html> 

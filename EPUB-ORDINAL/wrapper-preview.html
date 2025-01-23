@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000" />
+    <title>Inscripedia</title>
+    <script>
+        window.local = true;
+        window.fiber = true;
+        window.vfx = true;
+        window.drei3 = true;
+      </script>
+  
+      <script
+        id="ordengine"
+        src="https://ordinals.com/content/a9bf75af51c9b738b9f044175cf248c39e5d04edce8c63d130f6dab49b3ad92fi0"
+        type="module"
+        defer></script>
+        <style>
+          *{pointer-events:all;touch-action:auto;cursor:grab;overflow:hidden}
+          body{
+            margin:0;
+            background:#2a2a2a;
+            font-family:Montserrat,sans-serif;
+            cursor:grab;
+          }
+          body:active {
+            cursor:grabbing;
+          }
+          .loader{
+            width:100%;
+            height:100%;
+            position:absolute;
+            top:0;
+            left:0;
+            z-index:1000;
+            background:#2a2a2a;
+            pointer-events:none;
+            display:flex;
+            justify-content:center;
+            align-items:center
+          }
+          .loading{
+            font-size:16px;
+            font-weight:800;
+            color:#ffd1a9;
+            letter-spacing:initial
+          }
+          .loading span{display:inline-block;margin:0 -.05em}
+          .loading01 span{animation:loading01 2s infinite alternate}
+          .loading01 span:nth-child(2){animation-delay:.1s}
+          .loading01 span:nth-child(3){animation-delay:.2s}
+          .loading01 span:nth-child(4){animation-delay:.3s}
+          .loading01 span:nth-child(5){animation-delay:.4s}
+          .loading01 span:nth-child(6){animation-delay:.5s}
+          .loading01 span:nth-child(7){animation-delay:.6s}
+          .loading01 span:nth-child(8){animation-delay:.7s}
+          .loading01 span:nth-child(9){animation-delay:.8s}
+          .loading01 span:nth-child(10){animation-delay:.9s}
+          .loading01 span:nth-child(11){animation-delay:1s}
+          @keyframes loading01{0%{opacity:1}100%{opacity:0}}
+          .clickable-book { 
+            cursor:pointer !important;
+          }
+          .mobile-controls {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: none;
+            gap: 8px;
+            z-index: 1000;
+            flex-direction: column;
+            align-items: flex-end;
+          }
+          .mobile-controls button {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #ffd1a9;
+            padding: 8px 16px;
+            border-radius: 25px;
+            backdrop-filter: blur(10px);
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+          }
+          .mobile-controls button:active {
+            transform: scale(0.95);
+            background: rgba(255, 255, 255, 0.15);
+          }
+          @media (hover: none) and (pointer: coarse) {
+            .mobile-controls {
+              display: flex;
+            }
+          }
+        </style>
+    </head>
+  <body>
+    <div class="loader">
+      <div class="loading loading01">
+        <span>loading...</span>
+      </div>
+    </div>
+    <div class="mobile-controls">
+        <button onclick="window.dispatchEvent(new KeyboardEvent('keydown', { key: 'g' }))">Switch Model</button>
+        <button onclick="window.dispatchEvent(new KeyboardEvent('keydown', { key: 's' }))">Toggle Snow</button>
+        <button onclick="window.changeCover()">Change Cover</button>
+    </div>
+    <script type="module">
+      window.currentCoverIndex = 1;
+      window.changeCover = () => {
+        window.currentCoverIndex = (window.currentCoverIndex % 5) + 1;
+        window.dispatchEvent(new KeyboardEvent('keydown', { key: window.currentCoverIndex.toString() }));
+      };
+      
+      window.init = async function () {
+        const {
+          Color,
+          Uniform,
+          MeshStandardMaterial,
+          MeshPhysicalMaterial,
+          Mesh,
+          Clock,
+          Texture,
+          NormalBlending
+        } = THREE
+        const { Effect, Resolution, KernelSize } = POSTPROCESSING
+
+        const fragment = `
+        uniform float strength;
+
+        void mainImage(const in vec4 inputColor, const in vec2 uv, out vec4 outputColor) {
+          vec4 sum = inputColor;
+          float threshold = (sum.r + sum.g + sum.b)*0.33;
+          threshold = smoothstep(0.8,0.9,threshold);
+
+          sum += texture2D( inputBuffer, vec2( 0.5 + threshold*0.4, uv.y ) ) * 0.008 * pow(sin(uv.x*3.14),3.0) * strength;
+          sum += texture2D( inputBuffer, vec2( 0.4, uv.y ) ) * 0.08 * pow(sin(uv.x*3.14),3.0) * threshold;
+
+          sum += texture2D( inputBuffer, vec2( 1.0-uv.x - 0.4, uv.y ) ) * 0.008 * pow(sin(uv.x*3.14),3.0);
+
+          outputColor = sum;
+
+        }
+        `
+        class FlareEffect extends Effect {
+          constructor({ strength = 0.05 }) {
+            const uniforms = new Map([
+              ['strength', new Uniform(strength)]
+            ])
+
+            super('FlareEffect', fragment, {
+              uniforms
+            })
+          }
+        }
+
+        async function loadGLB(url, setShow) {
+          const codeUrl =
+            'https://ordinals.com/content/00ae91a4f7f4f6fa98c1deb0f57359079f7b5299094378ff15fa1c7f4366db3ci0'
+          const response = await fetch(codeUrl)
+          const code = await response.text()
+          let modifiedCode = code.replace(
+            'THREE.DRACOLoader=t',
+            'window.DRACOLoader=t'
+          )
+
+          modifiedCode = modifiedCode.replaceAll(
+            '/content/',
+            'https://ordinals.com/content/'
+          )
+
+          const blob = new Blob([modifiedCode], {
+            type: 'application/javascript'
+          })
+          const blobUrl = URL.createObjectURL(blob)
+          console.log('blobUrl', blobUrl)
+          const script = document.createElement('script')
+          script.type = 'module'
+          script.src = blobUrl
+          script.onload = () => {
+            console.log('leaded')
+            const loader = new PAC2.GLTFLoader()
+            const draco = new window.DRACOLoader()
+            loader.setDRACOLoader(draco)
+            loader.load(url, gltf => {
+              setShow(gltf)
+            })
+          }
+          document.head.appendChild(script)
+        }
+        //STARS
+        const Stars = () => {
+          const ref = useRef();
+          const [showSnow, setShowSnow] = useState(false);
+          
+          useEffect(() => {
+            const handleKeyPress = (event) => {
+              if (event.key.toLowerCase() === 's') {
+                setShowSnow(prev => !prev);
+              }
+            };
+            
+            window.addEventListener('keydown', handleKeyPress);
+            return () => window.removeEventListener('keydown', handleKeyPress);
+          }, []);
+
+          useEffect(() => {
+            if (ref.current) {
+              const geometry = new THREE.BufferGeometry();
+              const vertices = [];
+
+              // Reduced number of particles for snow
+              for (let i = 0; i < 5000; i++) {
+                // Create a cylinder-like space for snow to fall
+                const radius = Math.random() * 100;
+                const theta = Math.random() * Math.PI * 2;
+                const height = Math.random() * 1000 - 500;
+
+                const x = radius * Math.cos(theta);
+                const y = height;
+                const z = radius * Math.sin(theta);
+
+                vertices.push(x, y, z);
+              }
+
+              geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+
+              const material = new THREE.PointsMaterial({
+                color: 0xFFFFFF,
+                size: 1,
+                transparent: true,
+                opacity: 0.8
+              });
+
+              const snow = new THREE.Points(geometry, material);
+              ref.current.add(snow);
+            }
+          }, []);
+
+          useFrame((state, delta) => {
+            if (ref.current?.children[0]) {
+              // Only update snow if it's visible
+              if (showSnow) {
+                const positions = ref.current.children[0].geometry.attributes.position.array;
+                
+                for (let i = 0; i < positions.length; i += 3) {
+                  positions[i + 1] -= 0.05;
+                  positions[i] += Math.sin(state.clock.elapsedTime * 0.5 + positions[i]) * 0.005;
+                  
+                  if (positions[i + 1] < -500) {
+                    positions[i + 1] = 500;
+                  }
+                }
+                
+                ref.current.children[0].geometry.attributes.position.needsUpdate = true;
+              }
+            }
+          });
+
+          // Only render if showSnow is true
+          return html`<group ref=${ref} visible=${showSnow} />`;
+        }
+
+        // Billy
+        const Billy = () => {
+          const [show, setShow] = useState(false);
+          const [showGift, setShowGift] = useState(false);
+          const [currentModel, setCurrentModel] = useState('gift');
+          const [isWarping, setIsWarping] = useState(false);
+          const [isZooming, setIsZooming] = useState(true);
+          const starFieldRef = useRef();
+          const { camera, gl, controls } = useThree();
+          const [currentCover, setCurrentCover] = useState(1);
+          const coverMaterial = useRef(null);
+
+          const initialPosition = new THREE.Vector3(0, 0, 10);
+          const finalPosition = new THREE.Vector3(0, 0, 2);
+          const [cameraPosition, setCameraPosition] = useState(initialPosition);
+
+          let dynamicMaterials = []
+          const clock = new Clock()
+
+          // Single model loading effect
+          useEffect(async () => {
+            await loadGLB('./content/book-inscripedia.glb', setShow);
+            await loadGLB('./content/gift-inscripedia.glb', setShowGift);
+          }, []);
+
+          // Add model switching handler
+          useEffect(() => {
+            const handleKeyPress = (event) => {
+              if (event.key.toLowerCase() === 'g') {
+                console.log('Switching model');
+                setCurrentModel(prev => prev === 'gift' ? 'book' : 'gift');
+              }
+            };
+            
+            window.addEventListener('keydown', handleKeyPress);
+            return () => window.removeEventListener('keydown', handleKeyPress);
+          }, []);
+
+          // Add cover switching handler
+          useEffect(() => {
+            const handleKeyPress = (event) => {
+              const key = event.key;
+              if (['1', '2', '3', '4', '5'].includes(key)) {
+                const coverNumber = parseInt(key);
+                const newTexture = new THREE.TextureLoader().load(`./content/cover${coverNumber}.jpg`);
+                newTexture.flipX = true; // Flip each new texture
+                if (coverMaterial.current) {
+                  coverMaterial.current.map = newTexture;
+                  coverMaterial.current.needsUpdate = true;
+                }
+                setCurrentCover(coverNumber);
+              }
+            };
+            
+            window.addEventListener('keydown', handleKeyPress);
+            return () => window.removeEventListener('keydown', handleKeyPress);
+          }, []);
+
+          useFrame((state, delta) => {
+            dynamicMaterials.forEach(material => {
+            if (
+                material.userData.shader &&
+                material.userData.shader.uniforms.time
+            ) {
+                material.userData.shader.uniforms.time.value = state.clock.elapsedTime
+            }
+            })
+
+            // Animate stars
+            if (starFieldRef.current) {
+            const starField = starFieldRef.current.children[0];
+            starField.rotation.y += isWarping ? 0.01 : 0.0005; // Rotate the star field
+            const positions = starField.geometry.attributes.position.array;
+            const speed = isWarping ? 15 : 2;
+
+            for (let i = 0; i < positions.length; i += 3) {
+                positions[i + 2] -= speed;
+
+                if (positions[i + 2] < -1000) {
+                positions[i + 2] = 1000;
+                }
+            }
+
+            starField.geometry.attributes.position.needsUpdate = true;
+            }
+
+            // Zoom-in effect
+            if (isZooming) {
+            const newPosition = new THREE.Vector3().copy(cameraPosition).lerp(finalPosition, 0.1);
+            setCameraPosition(newPosition);
+            camera.position.copy(newPosition);
+
+            // Check if zoom is complete
+            if (newPosition.distanceTo(finalPosition) < 0.05) {
+                setIsZooming(false);
+            }
+            }
+
+            // Update orbit controls
+            if (controls) {
+            controls.update();
+            }
+        })
+
+        useEffect(() => {
+            if (controls) {
+            controls.enabled = !isZooming;
+            }
+        }, [controls, isZooming]);
+
+          useEffect(() => {
+            const { scene } = show
+
+                if (show && scene) {
+                // Center the model
+                const box = new THREE.Box3().setFromObject(scene)
+                const center = box.getCenter(new THREE.Vector3())
+                scene.position.sub(center)
+
+                document.querySelector('.loader').style.display = 'none'
+                document.querySelector('.title').style.display = 'none'
+                document.querySelector('#loader').style.display = 'none'
+
+                scene.traverse(child => {
+                  child.frustumCulled = false
+                  const mesh = child
+                  if (mesh.isMesh) {
+                    if (mesh.name.includes('Book') || mesh.name.includes('Cover')) {
+                      mesh.cursor = 'pointer'
+                      mesh.userData.clickable = true
+                    }
+                    
+                    const orgMaterial = mesh.material
+                    if (orgMaterial.name.includes('BillyMaterial.002')) {
+                      const newMaterial = new MeshPhysicalMaterial({
+                        transmission: 0.5,  // Reduced from 1
+                        transparent: true,
+                        side: THREE.DoubleSide,
+                        vertexColors: true,
+                        envMapIntensity: 0.2,  // Increased from 0
+                        map: new Texture()
+                      })
+                      console.log(newMaterial)
+                      //used in vertexcolors mesh
+                      newMaterial.onBeforeCompile = shader => {
+                        shader.uniforms.time = { value: 0 }
+                        shader.fragmentShader = shader.fragmentShader
+                          .replace(
+                            'void main() {',
+                            `
+                            uniform float time;
+
+                            }
+                            void main() {
+                            `
+                          )
+                          .replace(
+                            '#include <opaque_fragment>',
+                            `
+                            #include <opaque_fragment>
+
+                            gl_FragColor.rgb += abs(snoise(vec3(vMapUv.x,vMapUv.y*2.0,time*1.0))*0.5);
+                            gl_FragColor.rgb *= 3.9;
+                            gl_FragColor.a = 0.3;
+                          `
+                          )
+                        newMaterial.userData.shader = shader
+                      }
+
+                      dynamicMaterials.push(newMaterial)
+                      mesh.material = newMaterial
+                      console.log("Processing mesh:", child.name);
+                    } else {
+                      orgMaterial.envMapIntensity = 0.5
+                    }
+                  }
+                })
+            }
+          }, [show])
+
+          useEffect(() => {
+            const handleKeyDown = (event) => {
+            if (event.code === 'Space') {
+                event.preventDefault(); // Prevent default spacebar behavior
+                setIsWarping(true);
+                document.querySelector('.spacebar-indicator').style.display = 'block';
+            }
+            };
+            const handleKeyUp = (event) => {
+            if (event.code === 'Space') {
+                event.preventDefault(); // Prevent default spacebar behavior
+                setIsWarping(false);
+                document.querySelector('.spacebar-indicator').style.display = 'none';
+            }
+            };
+
+            window.addEventListener('keydown', handleKeyDown);
+            window.addEventListener('keyup', handleKeyUp);
+
+            return () => {
+            window.removeEventListener('keydown', handleKeyDown);
+            window.removeEventListener('keyup', handleKeyUp);
+            };
+        }, []);
+
+        // Material setup effect
+        useEffect(() => {
+          if (show?.scene) {
+            show.scene.traverse(child => {
+              if (child.isMesh && child.material && child.material.name === 'COVER') {
+                if (!coverMaterial.current) {
+                  const initialTexture = new THREE.TextureLoader().load('./content/cover1.jpg');
+                  coverMaterial.current = new THREE.MeshPhysicalMaterial({
+                    map: initialTexture,
+                    metalness: 0,
+                    roughness: 1,
+                    clearcoat: 0,
+                    clearcoatRoughness: 0.2,
+                    envMapIntensity: 1.5,
+                    side: THREE.DoubleSide
+                  });
+
+                  // Rotate UVs 180 degrees
+                  const uvs = child.geometry.attributes.uv;
+                  for (let i = 0; i < uvs.count; i++) {
+                    uvs.array[i * 2] = 1 - uvs.array[i * 2];
+                  }
+                  uvs.needsUpdate = true;
+                  
+                  child.material = coverMaterial.current;
+                }
+              }
+            });
+          }
+        }, [show]);
+
+        return html`
+            <group>
+            <ambientLight intensity=${0.5} />
+            <directionalLight position=${[5, 5, 5]} intensity=${0.8} />
+            <${Stars} ref=${starFieldRef} />
+            ${currentModel === 'book' && show 
+                ? html`
+                    <primitive
+                      object=${show.scene}
+                      rotation=${[0, 0, 0]}
+                      position=${[0, 0, 0]}
+                      scale=${0.69}
+                      visible=${currentModel === 'book'}
+                      onClick=${() => window.location.href = 'read.html'}
+                      onPointerOver=${e => {
+                        e.stopPropagation();
+                        document.body.style.cursor = 'pointer';
+                        e.target.style.cursor = 'pointer';
+                      }}
+                      onPointerOut=${e => {
+                        e.stopPropagation();
+                        document.body.style.cursor = 'grab';
+                        e.target.style.cursor = 'grab';
+                      }}
+                    />`
+                : null}
+            ${currentModel === 'gift' && showGift
+                ? html`
+                    <primitive
+                      object=${showGift.scene}
+                      rotation=${[0, 0, 0]}
+                      position=${[0, 0, 0]}
+                      scale=${0.5}
+                      visible=${currentModel === 'gift'} />`
+                : null}
+            </group>
+        `;
+        }
+
+        const Postprocessing = () => {
+          let strength = 0
+
+          const effect = useMemo(
+            () =>
+              new FlareEffect({
+                strength
+              }),
+            [strength]
+          )
+
+          return html` <${POST.EffectComposer}
+            disableNormalPass=${true}
+            multisampling=${8}>
+            <${POST.Bloom} intensity=${0.4} radius=${0.6}  // Reduced intensity and radius
+            opacity=${0.4} levels=${4} mipmapBlur=${true}  // Reduced opacity and levels
+            luminanceThreshold=${0.4} luminanceSmoothing=${0.4}  // Adjusted threshold and smoothing
+            kernelSize=${KernelSize.MEDIUM}  // Changed from LARGE to MEDIUM
+            resolutionX=${Resolution.AUTO_SIZE}
+            resolutionY=${Resolution.AUTO_SIZE} //>
+            <primitive object=${effect} />
+          <//>`
+        }
+        const Canvas = props => {
+        return html`
+          <${FIBER.Canvas} ...${props}>
+            <${DREIFX.OrbitControls} target=${[0, 0, 0]} />
+            <${Postprocessing} />
+            <${Suspense}>
+              <${DREIFX.Environment}
+                files=${'https://ordinals.com/content/8c4ea8f9fafef081345ba8a72c08efed2373d0ba33ac92aca5f043071fc42909i0'} />
+              <${Billy} />
+            <//>
+          <//>
+        `
+      }
+
+      render({
+      mainScene: {
+        component: Canvas,
+        props: {
+          camera: {
+            fov: 35,
+            near: 0.1,
+            far: 25000,
+            position: [0, 0, 2]
+          },
+          gl: {
+            alpha: false,
+            depth: true,
+            stencil: false,
+            antialias: false,
+            precision: 'highp'
+          },
+          scene: {
+            background: new THREE.Color("#2a2a2a")
+          }
+        }
+      }
+    })
+      }
+    </script>
+  </body>
+</html>
