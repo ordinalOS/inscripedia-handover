@@ -1,0 +1,1085 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#000"><script>window.local=!1,window.fiber=!0,window.vfx=!0,window.drei3=!0,void 0===window.wrap&&(window.wrap=1),void 0===window.cover&&(window.cover=1)</script><script id="ordengine" src="/content/a9bf75af51c9b738b9f044175cf248c39e5d04edce8c63d130f6dab49b3ad92fi0" type="module" defer="defer"></script><style>*{pointer-events:all;touch-action:auto;cursor:grab;overflow:hidden}body{margin:0;background:#2a2a2a;font-family:Montserrat,sans-serif;cursor:grab}body:active{cursor:grabbing}.loader{width:100%;height:100%;position:absolute;top:0;left:0;z-index:1000;background:#2a2a2a;pointer-events:none;display:flex;justify-content:center;align-items:center}.loading{font-size:16px;font-weight:800;color:#ffd1a9;letter-spacing:initial}.loading span{display:inline-block;margin:0 -.05em}.loading01 span{animation:loading01 2s infinite alternate}.loading01 span:nth-child(2){animation-delay:.1s}.loading01 span:nth-child(3){animation-delay:.2s}.loading01 span:nth-child(4){animation-delay:.3s}.loading01 span:nth-child(5){animation-delay:.4s}.loading01 span:nth-child(6){animation-delay:.5s}.loading01 span:nth-child(7){animation-delay:.6s}.loading01 span:nth-child(8){animation-delay:.7s}.loading01 span:nth-child(9){animation-delay:.8s}.loading01 span:nth-child(10){animation-delay:.9s}.loading01 span:nth-child(11){animation-delay:1s}@keyframes loading01{0%{opacity:1}100%{opacity:0}}.clickable-book{cursor:pointer!important}</style></head><body><template id="read-content"><!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"><title>A CHRISTMAS CAROL</title><style>:root{--bg:#222;--fg:#eee;--sidebar-bg:#333;--shadow:rgba(0, 0, 0, 0.3);--accent:#d4a373;--meta-label:#999;--spinner-color:#3498db}body.light{--bg:#fff;--fg:#222;--sidebar-bg:#f5f5f5;--shadow:rgba(0, 0, 0, 0.1);--accent:#d4a373;--meta-label:#666;--spinner-color:#3498db}*{-webkit-tap-highlight-color:transparent;overscroll-behavior:none}html{touch-action:manipulation;overscroll-behavior:none}body{margin:0;font:16px/1.6 Georgia,serif;background:var(--bg);color:var(--fg);-webkit-text-size-adjust:none;touch-action:manipulation;overflow-y:auto;overscroll-behavior:none}button{touch-action:manipulation;-webkit-touch-callout:none}#content{display:flex;min-height:100vh;position:relative;overscroll-behavior:none}#sidebar{width:300px;background:var(--sidebar-bg);box-shadow:2px 0 5px var(--shadow);position:fixed;top:0;left:0;bottom:0;padding:20px;overflow-y:auto;z-index:1000;transform:translateX(-100%);transition:transform .3s}#sidebar.active{transform:translateX(0);box-shadow:0 0 15px var(--shadow)}#reader{flex:1;position:relative;display:flex;flex-direction:column;touch-action:pan-y pinch-zoom;-webkit-overflow-scrolling:touch}#reader.book-mode{overflow-y:auto;-webkit-overflow-scrolling:touch;display:flex;justify-content:center;align-items:center;padding:4em 2em;min-height:100vh}#reader:not(.book-mode){padding:1em;padding-bottom:6em;max-width:800px;margin:0 auto;height:auto;min-height:auto;overflow:visible}#reader-content{width:100%;flex:1;display:flex;flex-direction:column}#chapters{width:100%;display:flex;flex-direction:column;gap:2em;padding-bottom:4em}#chapters.book-mode{display:flex;flex-direction:column;max-width:min(1260px,85vw);width:100%;height:min(85vh,95vh);max-height:1100px;margin:0 auto;overflow:hidden}.chapter{display:none;width:100%;min-height:auto;height:min(80vh,85vh);max-height:1100px;padding:0;margin:0;background:var(--sidebar-bg);box-shadow:0 0 10px var(--shadow);border-radius:2px;font-family:Georgia,serif;line-height:1.5;font-size:var(--font-size,1em);box-sizing:border-box;flex-direction:column;margin-bottom:2em}.chapter.active{display:flex;flex-direction:row;flex-wrap:wrap;background:var(--sidebar-bg);padding:0;width:100%;height:100%;gap:0;overflow:hidden}.chapter:first-child{justify-content:center;align-items:center;text-align:center}.chapter:first-child .page{display:flex!important;justify-content:center;align-items:center;text-align:center}.chapter:first-child .page>*{margin:0}.chapter:only-child h1{margin:auto}.chapter>:first-child{margin-top:0}.chapter>:last-child{margin-bottom:0}.chapter img{max-width:100%;height:auto}.chapter h1{color:var(--accent);font-size:1.8em;margin:0 0 1em 0}.page-spread{display:none;width:100%;height:100%}.page-spread.active{display:flex;flex-direction:row;gap:0}.page{flex:1;width:50%;min-width:50%;height:100%;max-height:100%;padding:1.5em;background:var(--sidebar-bg);box-shadow:2px 0 5px var(--shadow);box-sizing:border-box;display:none;margin:0;overflow-y:auto;text-align:justify;line-height:1.5;color:var(--fg);touch-action:pan-y;-webkit-touch-callout:none;-webkit-user-select:none;user-select:none;-webkit-overflow-scrolling:touch}.page.active{display:block;padding:40px!important}.page:nth-child(odd).active{border-right:1px solid var(--shadow)}.page>*{margin-bottom:1em}.page>:last-child{margin-bottom:0}.page p{margin:.2em 0;text-align:justify}.meta{margin:.5em 0 1em 0;font-size:.85em}.meta div{margin:.5em 0;line-height:1.4}.meta-label{font-size:.75em;text-transform:uppercase;letter-spacing:.05em;color:#666;margin-bottom:.2em;font-size:.8em;color:var(--fg);opacity:.7;margin-bottom:2px}.meta-value{font-size:.9em;font-size:.9em;color:var(--accent)}.toc-item{padding:.5em 0;cursor:pointer;border-bottom:1px solid var(--shadow);font-size:.9em}.toc-item:hover{color:var(--accent)}.toc-item.active{color:var(--accent);font-weight:700}#debug{padding:.5em;font-size:.75em;color:#666;border-bottom:1px solid var(--shadow)}#progress{position:fixed;bottom:50px;left:0;right:0;height:3px;background:var(--shadow)}#progress-bar{height:100%;width:0;background:var(--accent);transition:width .3s}.menu-controls{position:fixed;top:20px;right:20px;z-index:10}.menu-trigger{padding:0;background:0 0;border:none;color:var(--accent);cursor:pointer;font-size:2em;border-left:1px solid var(--shadow);opacity:.7;transition:opacity .2s;background:0 0;border:none;color:var(--accent);cursor:pointer;padding:4px;border-radius:4px;transition:.2s}.menu-trigger.active,.menu-trigger:hover{opacity:1}.menu-dropdown{position:absolute;right:5px;background:var(--sidebar-bg);box-shadow:0 2px 8px var(--shadow);padding:5px;display:none;min-width:180px;position:absolute;top:calc(100% + 8px);right:0;background:var(--sidebar-bg);border-radius:4px;box-shadow:0 2px 8px var(--shadow);min-width:200px;display:none}.menu-dropdown.active{display:block}.menu-group{padding:8px;border-bottom:1px solid var(--shadow);padding:12px;border-bottom:1px solid var(--shadow)}.menu-group:last-child{border-bottom:none;border:none}.menu-group-title{font-size:.8em;color:var(--fg);opacity:.7;margin-bottom:8px}.nav-button{display:block;width:100%;text-align:left;padding:8px;border:none;background:0 0;color:var(--fg);cursor:pointer;border-radius:4px;transition:.2s}.nav-button:hover{background:var(--shadow)}.nav-button.active{background:var(--accent);color:var(--sidebar-bg)}.font-controls{display:flex;gap:8px}.font-size-btn{padding:4px 8px;border:1px solid var(--shadow);border-radius:4px;background:0 0;color:var(--fg);cursor:pointer}.font-size-btn:hover{background:var(--shadow)}.side-nav{position:fixed;top:50%;transform:translateY(-50%);z-index:4;opacity:.3;transition:opacity .2s}.side-nav.prev{left:20px}.side-nav.next{right:20px}.side-nav .nav-button{font-size:1.5em;padding:15px;background:0 0;border:none;color:var(--accent);cursor:pointer;transition:transform .2s}.side-nav:hover{opacity:.8}.side-nav .nav-button:hover{transform:scale(1.2);background:0 0;color:var(--accent)}#mobile-nav{display:none;position:fixed;bottom:0;left:0;width:100%;background:var(--sidebar-bg);box-shadow:0 -2px 5px var(--shadow);z-index:10}#mobile-nav.expanded{transform:translateY(0);height:auto;max-height:70vh;overflow-y:auto}.nav-content{display:none;padding:15px;border-top:1px solid var(--shadow);background:var(--sidebar-bg);border-top:1px solid var(--shadow);padding:15px}#mobile-nav.expanded .nav-content{display:block}.book-info{position:fixed;top:0;right:0;transform:none;background:0 0;padding:0 10px;border-radius:4px;font-size:.9em;display:flex;gap:15px;align-items:center;z-index:5}.book-info .title{display:none}.book-info .chapter{opacity:.8}.book-info .pages{padding-left:15px}.book-info:hover{opacity:1}#meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:15px;margin-bottom:15px}#toc{max-height:300px;overflow-y:auto;border-top:1px solid var(--shadow);padding-top:15px}#reader:not(.book-mode) .chapter{padding:1.5em;padding-bottom:8em;margin-bottom:2em;text-align:left;line-height:1.6;background:0 0;box-shadow:none;height:auto;min-height:auto;display:block;overflow:visible}#reader:not(.book-mode) .chapter:last-child{margin-bottom:12em}#reader:not(.book-mode) .page{height:auto;min-height:auto;width:100%;max-width:100%;padding:0;margin:0;box-shadow:none;overflow:visible;display:block}#reader:not(.book-mode){padding-bottom:4em}body:has(#reader:not(.book-mode)) .book-info .pages,body:has(#reader:not(.book-mode)) .side-nav{display:none!important}@media (max-width:1024px){.page{width:50%;min-width:50%;max-width:50%;padding:1em}.side-nav{display:flex}}@media (max-width:800px){#mobile-nav{display:block}.chapter.active{flex-direction:column;margin-top:3.2em}.page{width:100%;min-width:100%;max-width:100%;height:auto;min-height:calc(100vh - 80px);max-height:none;box-sizing:border-box;font-size:1em;line-height:1.4;padding:20px!important;overflow-y:visible}.page *{max-width:100%;overflow-wrap:break-word;word-wrap:break-word;hyphens:auto}.page p{margin:.3em 0;width:100%;max-width:100%;text-align:justify}#chapters.book-mode{max-width:100%;width:100%;height:auto;min-height:calc(100vh - 2em);padding:0;margin:0;box-sizing:border-box}#reader.book-mode{padding:0;height:auto;min-height:100vh;margin:0;box-sizing:border-box}.page.active+.page.active{display:none}.side-nav{transform:scale(.7);opacity:.9}.side-nav.prev{left:0}.side-nav.next{right:0}#reader:not(.book-mode){padding:1em;padding-bottom:6em;overflow:visible}#reader:not(.book-mode) .chapter{padding:1.5em;padding-bottom:8em;overflow:visible}#reader:not(.book-mode) .chapter:last-child{margin-bottom:8em}#chapters{padding-bottom:2em}body{overflow-y:visible}.page-spread.active{padding:0}}#loading-spinner{position:fixed;top:0;left:0;width:100%;height:100%;background:var(--bg);display:flex;justify-content:center;align-items:center;z-index:1000}.spinner{width:20px;height:20px;border:2px solid rgba(255,255,255,.1);border-top:2px solid var(--accent);border-radius:50%;animation:spin .8s linear infinite}@keyframes spin{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}body.light #loading-spinner{background:var(--bg)}body.light .spinner{border-color:rgba(0,0,0,.1);border-top-color:var(--accent)}</style></head><body><div id="content"><div id="sidebar"><input type="file" accept=".epub" id="fileInput"><div id="meta"></div><div id="debug"></div><div id="toc"></div></div><div id="reader"><div id="reader-content"><div class="upload-area"><input type="file" accept=".epub" id="mainFileInput" style="display:none"></div><div id="chapters"></div></div></div><div class="book-info"><span class="pages" id="page-info"></span><button class="menu-trigger" onclick="toggleMenu()">☰</button><div class="menu-dropdown"><div class="menu-group"><button class="nav-button book" onclick="toggleBookMode()">📚 Book Mode</button><button class="nav-button theme" onclick='document.body.classList.toggle("light")'>☀️ Theme</button></div><div class="menu-group"><div class="menu-group-title">Book Info</div><div id="book-meta"></div></div></div></div><div id="loading-spinner" style="display:none"><div class="spinner"></div></div></div><div class="side-nav prev"><button class="nav-button prev" onclick="prevPage()">❮</button></div><div class="side-nav next"><button class="nav-button next" onclick="nextPage()">❯</button></div><script src="/content/372c5388030820daed356d25d7a1218d0b88d78a6d051d27c91d0f25ac4c3c5ei0"></script><script>async function readEpub(blob) {
+  const zip = new JSZip();
+  await zip.loadAsync(blob);
+  
+  console.log("Files in ZIP:", Object.keys(zip.files));
+  
+  // Get metadata from OPF
+  const container = await zip.file("META-INF/container.xml").async("text");
+  const opfPath = container.match(/full-path="([^"]+)"/)?.[1];
+  if (!opfPath) throw new Error("Invalid EPUB");
+  
+  const opf = await zip.file(opfPath).async("text");
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(opf, "text/xml");
+
+  // Get metadata
+  const meta = {};
+  ["title", "creator", "language", "date", "identifier"].forEach(tag => {
+    meta[tag] = doc.querySelector(`dc\\:${tag}, ${tag}`)?.textContent?.trim();
+  });
+
+  // Find all HTML/XHTML files in the ZIP
+  const allFiles = Object.keys(zip.files);
+  console.log("All files:", allFiles);
+
+  const htmlFiles = allFiles.filter(path => 
+    path.match(/\.(x?html?|htm)$/i) && 
+    !path.startsWith('__MACOSX') &&
+    !zip.files[path].dir
+  );
+  console.log("HTML files found:", htmlFiles);
+
+  // Load all HTML files as chapters
+  const chapters = [];
+  for (const path of htmlFiles) {
+    try {
+      const content = await zip.file(path).async("text");
+      if (content && content.trim()) {
+        console.log(`Content found in ${path}, length: ${content.length}`);
+        chapters.push({
+          id: path,
+          content: content
+        });
+      }
+    } catch (err) {
+      console.error(`Error loading ${path}:`, err);
+    }
+  }
+
+  // If no HTML files found, try XML files
+  if (chapters.length === 0) {
+    const xmlFiles = allFiles.filter(path => 
+      path.match(/\.xml$/i) && 
+      !path.startsWith('__MACOSX') &&
+      !path.includes('container.xml') &&
+      !zip.files[path].dir
+    );
+    
+    for (const path of xmlFiles) {
+      try {
+        const content = await zip.file(path).async("text");
+        if (content && content.trim()) {
+          console.log(`Content found in ${path}, length: ${content.length}`);
+          chapters.push({
+            id: path,
+            content: content
+          });
+        }
+      } catch (err) {
+        console.error(`Error loading ${path}:`, err);
+      }
+    }
+  }
+
+  console.log(`Total chapters found: ${chapters.length}`);
+
+  // Create simple TOC
+  const toc = chapters.map((ch, i) => ({
+    id: ch.id,
+    title: `Chapter ${i + 1}`,
+    src: null
+  }));
+
+  return { meta, chapters, toc, css: [] };
+}</script><script>// Add font size control
+    let currentFontSize = 1;
+    
+    function adjustFontSize(delta) {
+      currentFontSize = Math.max(0.8, Math.min(1.5, currentFontSize + delta));
+      document.documentElement.style.setProperty('--font-size', `${currentFontSize}em`);
+      
+      if (els.reader.classList.contains('book-mode')) {
+        convertToPages();
+        showChapter(currentChapter, currentPage);
+      }
+    }
+
+    const els = {
+      fileInput: document.getElementById('fileInput'),
+      mainFileInput: document.getElementById('mainFileInput'),
+      uploadArea: document.querySelector('.upload-area'),
+      meta: document.getElementById('meta'),
+      chapters: document.getElementById('chapters'),
+      toc: document.getElementById('toc'),
+      debug: document.getElementById('debug'),
+      sidebar: document.getElementById('sidebar'),
+      progressBar: document.getElementById('progress-bar'),
+      reader: document.getElementById('reader'),
+      pageInfo: document.getElementById('page-info'),
+      prevButton: document.querySelector('.nav-button.prev'),
+      nextButton: document.querySelector('.nav-button.next')
+    };
+
+    let currentChapter = 0;
+    let totalChapters = 0;
+    let currentPage = 0;
+
+    // Mobile touch handling
+    let touchStartX = 0;
+    let touchStartY = 0;
+    document.addEventListener('touchstart', e => {
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+    });
+    document.addEventListener('touchend', e => {
+      const diffX = touchStartX - e.changedTouches[0].clientX;
+      const diffY = touchStartY - e.changedTouches[0].clientY;
+
+      if (Math.abs(diffY) > Math.abs(diffX)) {
+        // Vertical scroll, do nothing
+        return;
+      }
+
+      const swipeThreshold = 100; // Adjust as needed
+      if (Math.abs(diffX) > swipeThreshold) {
+        if (diffX > 0) {
+          nextPage();
+        } else {
+          prevPage();
+        }
+      }
+    });
+
+    function showChapter(idx, pageIdx = 0) {
+      if (idx < 0 || idx >= totalChapters) return;
+      
+      const chapters = [...els.chapters.children];
+      const currentChapterEl = chapters[idx];
+      const pages = [...currentChapterEl.querySelectorAll('.page')];
+      const isMobile = window.innerWidth <= 800;
+      
+      chapters.forEach(ch => ch.classList.remove('active'));
+      currentChapterEl.classList.add('active');
+      
+      // Hide all pages
+      pages.forEach(page => page.classList.remove('active'));
+      
+      // Show current page(s)
+      if (pages[pageIdx]) {
+        pages[pageIdx].classList.add('active');
+      }
+      if (!isMobile && pages[pageIdx + 1]) {
+        pages[pageIdx + 1].classList.add('active');
+      }
+      
+      currentChapter = idx;
+      currentPage = pageIdx;
+      
+      // Calculate total pages across all chapters
+      const totalPagesBeforeChapter = chapters
+        .slice(0, idx)
+        .reduce((sum, ch) => sum + ch.querySelectorAll('.page').length, 0);
+      
+      const currentPageNumber = totalPagesBeforeChapter + pageIdx + 1;
+      const totalPages = chapters.reduce((sum, ch) => sum + ch.querySelectorAll('.page').length, 0);
+      
+      // Update page info
+      const currentPageInfo = isMobile 
+        ? `${currentPageNumber}` 
+        : `${currentPageNumber}-${Math.min(currentPageNumber + 1, totalPages)}`;
+      els.pageInfo.textContent = `${currentPageInfo} of ${totalPages}`;
+      
+      // Update navigation
+      els.prevButton.disabled = currentPageNumber === 1;
+      els.nextButton.disabled = isMobile 
+        ? currentPageNumber >= totalPages
+        : currentPageNumber >= totalPages - 1;
+      
+      els.progressBar.style.width = `${(currentPageNumber / totalPages) * 100}%`;
+      
+      els.reader.scrollTop = 0;
+    }
+
+    // Update navigation handlers
+    function nextPage() {
+      const chapter = els.chapters.children[currentChapter];
+      const pages = [...chapter.querySelectorAll('.page')];
+      const isMobile = window.innerWidth <= 800;
+      const increment = isMobile ? 1 : 2;
+      
+      if (currentPage + increment < pages.length) {
+        showChapter(currentChapter, currentPage + increment);
+      } else if (currentChapter < totalChapters - 1) {
+        showChapter(currentChapter + 1, 0);
+      }
+    }
+
+    function prevPage() {
+      const isMobile = window.innerWidth <= 800;
+      const decrement = isMobile ? 1 : 2;
+      
+      if (currentPage > 0) {
+        showChapter(currentChapter, currentPage - decrement);
+      } else if (currentChapter > 0) {
+        const prevChapter = els.chapters.children[currentChapter - 1];
+        const pages = [...prevChapter.querySelectorAll('.page')];
+        const lastPageIndex = isMobile ? pages.length - 1 : Math.max(0, pages.length - 2);
+        showChapter(currentChapter - 1, lastPageIndex);
+      }
+    }
+
+    // Update navigation button handlers
+    els.nextButton.onclick = () => els.reader.classList.contains('book-mode') ? nextPage() : showChapter(currentChapter + 1);
+    els.prevButton.onclick = () => els.reader.classList.contains('book-mode') ? prevPage() : showChapter(currentChapter - 1);
+
+    // Update keyboard navigation
+    document.onkeydown = e => {
+      if (els.reader.classList.contains('book-mode')) {
+        if (e.key === 'ArrowRight') nextPage();
+        if (e.key === 'ArrowLeft') prevPage();
+      } else {
+        if (e.key === 'ArrowRight') showChapter(currentChapter + 1);
+        if (e.key === 'ArrowLeft') showChapter(currentChapter - 1);
+      }
+    };
+
+    // Handle drag and drop
+    els.uploadArea.onclick = () => els.mainFileInput.click();
+    els.uploadArea.ondragover = e => {
+      e.preventDefault();
+      els.uploadArea.classList.add('drag-over');
+    };
+    els.uploadArea.ondragleave = () => els.uploadArea.classList.remove('drag-over');
+    els.uploadArea.ondrop = e => {
+      e.preventDefault();
+      const file = e.dataTransfer.files[0];
+      if (file) loadEpub(file);
+    };
+    els.mainFileInput.onchange = e => loadEpub(e.target.files[0]);
+    els.fileInput.onchange = e => loadEpub(e.target.files[0]);
+
+    async function loadEpub(file) {
+      try {
+        const epub = await readEpub(file);
+        els.uploadArea.classList.add('hidden');
+        
+        // Override metadata with hardcoded values
+        epub.meta.title = "A CHRISTMAS CAROL";
+        epub.meta.creator = "DICKENS, CHARLES";
+        epub.meta.inscriber = "INSCRIPEDIA";
+        delete epub.meta.date;
+        
+        // Define display order
+        const displayOrder = ['title', 'creator', 'inscriber', 'language', 'identifier'];
+        
+        // Update metadata display with custom labels
+        const metaContent = displayOrder
+          .filter(k => epub.meta[k])
+          .map(k => `
+            <div class="meta-item">
+              <div class="meta-label">${k === 'creator' ? 'AUTHOR' : k === 'inscriber' ? 'PUBLISHER' : k.toUpperCase()}</div>
+              <div class="meta-value">${epub.meta[k]}</div>
+            </div>
+          `).join('');
+        
+        els.meta.innerHTML = metaContent;
+        document.getElementById('book-meta').innerHTML = metaContent;
+        
+        els.debug.textContent = `Loaded ${epub.chapters.length} chapters`;
+        
+        els.toc.innerHTML = epub.toc
+          .map((item, i) => `<div class="toc-item" onclick="showChapter(${i})">${item.title}</div>`)
+          .join('');
+
+        els.chapters.innerHTML = epub.chapters
+          .map(ch => `<div class="chapter">${ch.content}</div>`)
+          .join('');
+
+        totalChapters = epub.chapters.length;
+        
+        // Default to book mode on load
+        els.reader.classList.add('book-mode');
+        els.chapters.classList.add('book-mode');
+        document.querySelector('.nav-button.book').classList.add('active');
+        convertToPages();
+        
+        showChapter(0);
+        
+        document.onkeydown = e => {
+          if (e.key === 'ArrowRight') nextPage();
+          if (e.key === 'ArrowLeft') prevPage();
+        };
+      } catch (err) {
+        els.debug.textContent = `Error: ${err.message}`;
+        console.error(err);
+      }
+    }
+
+    // Update book mode toggle function
+    function toggleBookMode() {
+      const isBookMode = els.reader.classList.toggle('book-mode');
+      els.chapters.classList.toggle('book-mode');
+      document.querySelector('.nav-button.book').classList.toggle('active');
+      
+      if (isBookMode) {
+        convertToPages();
+      } else {
+        restoreChapterView();
+      }
+      
+      showChapter(currentChapter);
+    }
+
+    function convertToPages() {
+      const chapters = [...els.chapters.children];
+      const isMobileView = window.innerWidth <= 800;
+
+      // Adjust mobile font size and spacing
+      const mobileStyles = isMobileView ? `
+      ` : `
+      `;
+
+      chapters.forEach((chapter, chapterIndex) => {
+        chapter.style.display = 'block';
+        chapter.style.visibility = 'hidden';
+        
+        const pageWidth = isMobileView ? chapter.clientWidth : chapter.clientWidth / 2;
+        
+        const measureDiv = document.createElement('div');
+        measureDiv.style.cssText = `
+          position: absolute;
+          visibility: hidden;
+          width: ${pageWidth}px;
+          padding: ${isMobileView ? '20px' : '1.5em'};
+          font-size: ${window.getComputedStyle(chapter).fontSize};
+          line-height: ${window.getComputedStyle(chapter).lineHeight};
+          box-sizing: border-box;
+        `;
+        document.body.appendChild(measureDiv);
+
+        const content = chapter.innerHTML;
+        const pages = [];
+        let currentPageContent = '';
+        const maxHeight = isMobileView ? 
+          window.innerHeight - 80 : // Account for mobile padding/margins
+          chapter.clientHeight - 24;
+
+        // Filter out empty text nodes and preserve whitespace
+        const elements = Array.from(new DOMParser()
+          .parseFromString(content, 'text/html')
+          .body.childNodes)
+          .filter(node => 
+            node.nodeType === Node.TEXT_NODE ? 
+            node.textContent.trim().length > 0 : true
+          );
+
+        if (chapterIndex === 0) {
+          // Title page - combine all content into a single centered page
+          const titleContent = `
+            <div class="title-page" style="
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              align-items: center;
+              min-height: 100%;
+              text-align: center;
+              padding: ${isMobileView ? '0em 1em' : '0em'};
+              margin-top: ${isMobileView ? '0em' : '0'};
+            ">
+              ${elements.map(el => el.outerHTML || el.textContent).join('')}
+            </div>
+          `;
+          pages.push(titleContent);
+        } else {
+          // Process regular chapter content
+          elements.forEach(element => {
+            const elementHTML = element.outerHTML || element.textContent;
+            
+            // Preserve whitespace when measuring
+            measureDiv.style.whiteSpace = 'pre-wrap';
+            measureDiv.innerHTML = currentPageContent + elementHTML;
+
+            if (measureDiv.offsetHeight <= maxHeight) {
+              currentPageContent += elementHTML;
+            } else {
+              if (currentPageContent.trim()) {
+                pages.push(currentPageContent);
+              }
+              
+              // Handle elements that are too large for a single page
+              measureDiv.innerHTML = elementHTML;
+              if (measureDiv.offsetHeight <= maxHeight) {
+                currentPageContent = elementHTML;
+              } else {
+                // Split large elements if needed
+                const words = elementHTML.split(/(\s+)/);
+                let tempContent = '';
+                
+                for (const word of words) {
+                  measureDiv.innerHTML = tempContent + word;
+                  if (measureDiv.offsetHeight > maxHeight) {
+                    if (tempContent.trim()) {
+                      pages.push(tempContent);
+                    }
+                    tempContent = word;
+                  } else {
+                    tempContent += word;
+                  }
+                }
+                
+                currentPageContent = tempContent;
+              }
+            }
+          });
+
+          if (currentPageContent.trim()) {
+            pages.push(currentPageContent);
+          }
+        }
+
+        document.body.removeChild(measureDiv);
+
+        // Only update chapter content if we have pages
+        if (pages.length) {
+          chapter.innerHTML = pages
+            .map(content => `
+              <div class="page" style="${mobileStyles}${chapterIndex !== 0 ? 'width: 100%; padding: 20px; text-align: justify;' : ''}">
+                ${content}
+              </div>
+            `)
+            .join('');
+        }
+      });
+
+      // Restore visibility
+      chapters.forEach(chapter => {
+        chapter.style.display = '';
+        chapter.style.visibility = '';
+      });
+    }
+
+    function restoreChapterView() {
+      const chapters = [...els.chapters.children];
+      
+      chapters.forEach(chapter => {
+        // Get all pages content
+        const pages = [...chapter.querySelectorAll('.page')];
+        if (!pages.length) return;
+        
+        // Combine all page content and unwrap from page divs
+        const content = pages.reduce((acc, page) => {
+          // Extract content from page div and remove the div wrapper
+          const pageContent = page.innerHTML;
+          return acc + pageContent;
+        }, '');
+        
+        // Remove all page divs and directly insert content
+        chapter.innerHTML = content;
+        
+        // Reset chapter styles
+        chapter.style = '';
+        chapter.classList.remove('active');
+      });
+      
+      // Reset reader styles
+      els.reader.style = '';
+      els.chapters.style = '';
+      
+      // Reset current page
+      currentPage = 0;
+    }
+
+    // Auto-load test.epub on page load
+    window.addEventListener('load', async () => {
+      try {
+        const spinner = document.getElementById('loading-spinner');
+        spinner.style.display = 'flex';
+        els.uploadArea.classList.add('hidden');
+        
+        const response = await fetch('/content/2d9cecf5e824625aa829835069323aa866d3270318e1edf77cd1be9438dd5323i0');
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const blob = await response.blob();
+        await loadEpub(blob);
+        
+        // Match system dark mode preference
+        const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+        document.body.classList.toggle('light', prefersLight);
+        
+        // Listen for system theme changes
+        window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', e => {
+          document.body.classList.toggle('light', e.matches);
+        });
+
+        spinner.style.display = 'none';
+      } catch (err) {
+        const spinner = document.getElementById('loading-spinner');
+        spinner.style.display = 'none';
+        els.uploadArea.classList.remove('hidden');
+        els.debug.textContent = `Error loading .epub: ${err.message}`;
+        console.error('Epub loading error:', err);
+      }
+    });
+
+    // Update theme toggle function
+    function toggleMenu() {
+      const dropdown = document.querySelector('.menu-dropdown');
+      const trigger = document.querySelector('.menu-trigger');
+      dropdown.classList.toggle('active');
+      trigger.classList.toggle('active');
+      
+      // Close menu when clicking outside
+      const closeMenu = (e) => {
+        if (!dropdown.contains(e.target) && !trigger.contains(e.target)) {
+          dropdown.classList.remove('active');
+          trigger.classList.remove('active');
+          document.removeEventListener('click', closeMenu);
+        }
+      };
+      
+      if (dropdown.classList.contains('active')) {
+        setTimeout(() => {
+          document.addEventListener('click', closeMenu);
+        }, 0);
+      }
+    }
+
+    // Add a function to detect mobile devices
+    function isMobile() {
+      return window.innerWidth <= 1024;
+    }
+
+    // Modify scroll handling
+    els.reader.onscroll = (e) => {
+      if (isScrolling || isMobile()) return;
+
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        const scrollPos = els.reader.scrollTop;
+        const height = els.reader.clientHeight;
+        const scrollPercent = scrollPos / (els.reader.scrollHeight - height);
+
+        if (scrollPercent > 0.8 && currentChapter < totalChapters - 1) {
+          showChapter(currentChapter + 1);
+        } else if (scrollPercent < 0.2 && currentChapter > 0) {
+          showChapter(currentChapter - 1);
+        }
+      }, 100);
+    };</script></body></html></template><div class="loader"><div class="loading loading01"><span>loading...</span></div></div><script type="module">window.currentCoverIndex = 1;
+      
+      window.init = async function () {
+        const {
+          Color,
+          Uniform,
+          MeshStandardMaterial,
+          MeshPhysicalMaterial,
+          Mesh,
+          Clock,
+          Texture,
+          NormalBlending
+        } = THREE
+        const { Effect, Resolution, KernelSize } = POSTPROCESSING
+
+        const fragment = `
+        uniform float strength;
+
+        void mainImage(const in vec4 inputColor, const in vec2 uv, out vec4 outputColor) {
+          vec4 sum = inputColor;
+          float threshold = (sum.r + sum.g + sum.b)*0.33;
+          threshold = smoothstep(0.8,0.9,threshold);
+
+          sum += texture2D( inputBuffer, vec2( 0.5 + threshold*0.4, uv.y ) ) * 0.008 * pow(sin(uv.x*3.14),3.0) * strength;
+          sum += texture2D( inputBuffer, vec2( 0.4, uv.y ) ) * 0.08 * pow(sin(uv.x*3.14),3.0) * threshold;
+
+          sum += texture2D( inputBuffer, vec2( 1.0-uv.x - 0.4, uv.y ) ) * 0.008 * pow(sin(uv.x*3.14),3.0);
+
+          outputColor = sum;
+
+        }
+        `
+        class FlareEffect extends Effect {
+          constructor({ strength = 0.05 }) {
+            const uniforms = new Map([
+              ['strength', new Uniform(strength)]
+            ])
+
+            super('FlareEffect', fragment, {
+              uniforms
+            })
+          }
+        }
+
+        async function loadGLB(url, setShow) {
+          const codeUrl =
+            '/content/00ae91a4f7f4f6fa98c1deb0f57359079f7b5299094378ff15fa1c7f4366db3ci0'
+          const response = await fetch(codeUrl)
+          const code = await response.text()
+          let modifiedCode = code.replace(
+            'THREE.DRACOLoader=t',
+            'window.DRACOLoader=t'
+          )
+
+        //   modifiedCode = modifiedCode.replaceAll(
+        //   '/content/',
+        //   window.location.origin + '/content/'
+        // )
+
+
+        modifiedCode = modifiedCode.replaceAll(
+            '/content/',
+            'https://ordinals.com/content/'
+          )
+
+          const blob = new Blob([modifiedCode], {
+            type: 'application/javascript'
+          })
+          const blobUrl = URL.createObjectURL(blob)
+          console.log('blobUrl', blobUrl)
+          const script = document.createElement('script')
+          script.type = 'module'
+          script.src = blobUrl
+          script.onload = () => {
+            console.log('leaded')
+            const loader = new PAC2.GLTFLoader()
+            const draco = new window.DRACOLoader()
+            loader.setDRACOLoader(draco)
+            loader.load(url, gltf => {
+              setShow(gltf)
+            })
+          }
+          document.head.appendChild(script)
+        }
+        //STARS
+        const Stars = () => {
+          const ref = useRef();
+          const [showSnow, setShowSnow] = useState(false);
+          
+          useEffect(() => {
+            const handleKeyPress = (event) => {
+              if (event.key.toLowerCase() === 's') {
+                setShowSnow(prev => !prev);
+              }
+            };
+            
+            window.addEventListener('keydown', handleKeyPress);
+            return () => window.removeEventListener('keydown', handleKeyPress);
+          }, []);
+
+          useEffect(() => {
+            if (ref.current) {
+              const geometry = new THREE.BufferGeometry();
+              const vertices = [];
+
+              // Reduced number of particles for snow
+              for (let i = 0; i < 5000; i++) {
+                // Create a cylinder-like space for snow to fall
+                const radius = Math.random() * 100;
+                const theta = Math.random() * Math.PI * 2;
+                const height = Math.random() * 1000 - 500;
+
+                const x = radius * Math.cos(theta);
+                const y = height;
+                const z = radius * Math.sin(theta);
+
+                vertices.push(x, y, z);
+              }
+
+              geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+
+              const material = new THREE.PointsMaterial({
+                color: 0xFFFFFF,
+                size: 1,
+                transparent: true,
+                opacity: 0.8
+              });
+
+              const snow = new THREE.Points(geometry, material);
+              ref.current.add(snow);
+            }
+          }, []);
+
+          useFrame((state, delta) => {
+            if (ref.current?.children[0]) {
+              // Only update snow if it's visible
+              if (showSnow) {
+                const positions = ref.current.children[0].geometry.attributes.position.array;
+                
+                for (let i = 0; i < positions.length; i += 3) {
+                  positions[i + 1] -= 0.05;
+                  positions[i] += Math.sin(state.clock.elapsedTime * 0.5 + positions[i]) * 0.005;
+                  
+                  if (positions[i + 1] < -500) {
+                    positions[i + 1] = 500;
+                  }
+                }
+                
+                ref.current.children[0].geometry.attributes.position.needsUpdate = true;
+              }
+            }
+          });
+
+          // Only render if showSnow is true
+          return html`<group ref=${ref} visible=${showSnow} />`;
+        }
+
+        // Billy
+        const Billy = () => {
+          const [show, setShow] = useState(false);
+          const [showGift, setShowGift] = useState(false);
+          const [currentModel, setCurrentModel] = useState(window.wrap === 1 ? 'gift' : 'book');
+          const [isWarping, setIsWarping] = useState(false);
+          const [isZooming, setIsZooming] = useState(true);
+          const starFieldRef = useRef();
+          const { camera, gl, controls } = useThree();
+          const coverMaterial = useRef(null);
+
+          const initialPosition = new THREE.Vector3(0, 0, 10);
+          const finalPosition = new THREE.Vector3(0, 0, 2);
+          const [cameraPosition, setCameraPosition] = useState(initialPosition);
+
+          let dynamicMaterials = []
+          const clock = new Clock()
+
+          // Single model loading effect
+          useEffect(async () => {
+            await loadGLB('/content/9ab6475ee3e041af88abfe02fc9a17d92045f107a931c647fde49394ad96c311i3', setShow);
+            await loadGLB('/content/9ab6475ee3e041af88abfe02fc9a17d92045f107a931c647fde49394ad96c311i2', setShowGift);
+          }, []);
+
+          useFrame((state, delta) => {
+            dynamicMaterials.forEach(material => {
+            if (
+                material.userData.shader &&
+                material.userData.shader.uniforms.time
+            ) {
+                material.userData.shader.uniforms.time.value = state.clock.elapsedTime
+            }
+            })
+
+            // Animate stars
+            if (starFieldRef.current) {
+            const starField = starFieldRef.current.children[0];
+            starField.rotation.y += isWarping ? 0.01 : 0.0005; // Rotate the star field
+            const positions = starField.geometry.attributes.position.array;
+            const speed = isWarping ? 15 : 2;
+
+            for (let i = 0; i < positions.length; i += 3) {
+                positions[i + 2] -= speed;
+
+                if (positions[i + 2] < -1000) {
+                positions[i + 2] = 1000;
+                }
+            }
+
+            starField.geometry.attributes.position.needsUpdate = true;
+            }
+
+            // Zoom-in effect
+            if (isZooming) {
+            const newPosition = new THREE.Vector3().copy(cameraPosition).lerp(finalPosition, 0.1);
+            setCameraPosition(newPosition);
+            camera.position.copy(newPosition);
+
+            // Check if zoom is complete
+            if (newPosition.distanceTo(finalPosition) < 0.05) {
+                setIsZooming(false);
+            }
+            }
+
+            // Update orbit controls
+            if (controls) {
+            controls.update();
+            }
+        })
+
+        useEffect(() => {
+            if (controls) {
+            controls.enabled = !isZooming;
+            }
+        }, [controls, isZooming]);
+
+          useEffect(() => {
+            const { scene } = show
+
+                if (show && scene) {
+                // Center the model
+                const box = new THREE.Box3().setFromObject(scene)
+                const center = box.getCenter(new THREE.Vector3())
+                scene.position.sub(center)
+
+                document.querySelector('.loader').style.display = 'none'
+                document.querySelector('.title').style.display = 'none'
+                document.querySelector('#loader').style.display = 'none'
+
+                scene.traverse(child => {
+                  child.frustumCulled = false
+                  const mesh = child
+                  if (mesh.isMesh) {
+                    if (mesh.name.includes('Book') || mesh.name.includes('Cover')) {
+                      mesh.cursor = 'pointer'
+                      mesh.userData.clickable = true
+                    }
+                    
+                    const orgMaterial = mesh.material
+                    if (orgMaterial.name.includes('BillyMaterial.002')) {
+                      const newMaterial = new MeshPhysicalMaterial({
+                        transmission: 0.5,  // Reduced from 1
+                        transparent: true,
+                        side: THREE.DoubleSide,
+                        vertexColors: true,
+                        envMapIntensity: 0.2,  // Increased from 0
+                        map: new Texture()
+                      })
+                      console.log(newMaterial)
+                      //used in vertexcolors mesh
+                      newMaterial.onBeforeCompile = shader => {
+                        shader.uniforms.time = { value: 0 }
+                        shader.fragmentShader = shader.fragmentShader
+                          .replace(
+                            'void main() {',
+                            `
+                            uniform float time;
+
+                            }
+                            void main() {
+                            `
+                          )
+                          .replace(
+                            '#include <opaque_fragment>',
+                            `
+                            #include <opaque_fragment>
+
+                            gl_FragColor.rgb += abs(snoise(vec3(vMapUv.x,vMapUv.y*2.0,time*1.0))*0.5);
+                            gl_FragColor.rgb *= 3.9;
+                            gl_FragColor.a = 0.3;
+                          `
+                          )
+                        newMaterial.userData.shader = shader
+                      }
+
+                      dynamicMaterials.push(newMaterial)
+                      mesh.material = newMaterial
+                      console.log("Processing mesh:", child.name);
+                    } else {
+                      orgMaterial.envMapIntensity = 0.5
+                    }
+                  }
+                })
+            }
+          }, [show])
+
+          useEffect(() => {
+            const handleKeyDown = (event) => {
+            if (event.code === 'Space') {
+                event.preventDefault(); // Prevent default spacebar behavior
+                setIsWarping(true);
+                document.querySelector('.spacebar-indicator').style.display = 'block';
+            }
+            };
+            const handleKeyUp = (event) => {
+            if (event.code === 'Space') {
+                event.preventDefault(); // Prevent default spacebar behavior
+                setIsWarping(false);
+                document.querySelector('.spacebar-indicator').style.display = 'none';
+            }
+            };
+
+            window.addEventListener('keydown', handleKeyDown);
+            window.addEventListener('keyup', handleKeyUp);
+
+            return () => {
+            window.removeEventListener('keydown', handleKeyDown);
+            window.removeEventListener('keyup', handleKeyUp);
+            };
+        }, []);
+
+        // Material setup effect
+        useEffect(() => {
+          if (show?.scene) {
+            show.scene.traverse(child => {
+              if (child.isMesh && child.material && child.material.name === 'COVER') {
+                if (!coverMaterial.current) {
+                  const coverUrls = {
+                    1: '/content/de5522fb39e3030637225ce7712e3a52aa3d1853659594da9f7debc0ca156f32i2',
+                    2: '/content/9ab6475ee3e041af88abfe02fc9a17d92045f107a931c647fde49394ad96c311i0',
+                    3: '/content/9ab6475ee3e041af88abfe02fc9a17d92045f107a931c647fde49394ad96c311i1',
+                    4: '/content/de5522fb39e3030637225ce7712e3a52aa3d1853659594da9f7debc0ca156f32i1',
+                    5: '/content/de5522fb39e3030637225ce7712e3a52aa3d1853659594da9f7debc0ca156f32i0'
+                  };
+
+                  const coverUrl = coverUrls[window.cover] || coverUrls[1];
+                  const initialTexture = new THREE.TextureLoader().load(coverUrl);
+
+                  coverMaterial.current = new THREE.MeshPhysicalMaterial({
+                    map: initialTexture,
+                    metalness: 0,
+                    roughness: 1,
+                    clearcoat: 0,
+                    clearcoatRoughness: 0.2,
+                    envMapIntensity: 1.5,
+                    side: THREE.DoubleSide
+                  });
+
+                  // Rotate UVs 180 degrees
+                  const uvs = child.geometry.attributes.uv;
+                  for (let i = 0; i < uvs.count; i++) {
+                    uvs.array[i * 2] = 1 - uvs.array[i * 2];
+                  }
+                  uvs.needsUpdate = true;
+                  
+                  child.material = coverMaterial.current;
+                }
+              }
+            });
+          }
+        }, [show]);
+
+        return html`
+            <group>
+            <ambientLight intensity=${0.5} />
+            <directionalLight position=${[5, 5, 5]} intensity=${0.8} />
+            <${Stars} ref=${starFieldRef} />
+            ${currentModel === 'book' && show 
+                ? html`
+                    <primitive
+                      object=${show.scene}
+                      rotation=${[0, 0, 0]}
+                      position=${[0, 0, 0]}
+                      scale=${0.69}
+                      visible=${currentModel === 'book'}
+                      onClick=${() => {
+                        // Get template content
+                        const template = document.querySelector('#read-content');
+                        if (!template) {
+                            console.error('Template not found');
+                            return;
+                        }
+                        
+                        // Create a new document parser
+                        const parser = new DOMParser();
+                        const doc = parser.parseFromString(template.innerHTML, 'text/html');
+                        
+                        // Clean current document
+                        document.body.innerHTML = '';
+                        document.head.innerHTML = '';
+                        
+                        // Copy over head content
+                        Array.from(doc.head.children).forEach(child => {
+                            document.head.appendChild(child.cloneNode(true));
+                        });
+                        
+                        // Copy over body content
+                        Array.from(doc.body.children).forEach(child => {
+                            document.body.appendChild(child.cloneNode(true));
+                        });
+                        
+                        // Force script execution
+                        document.querySelectorAll('script').forEach(script => {
+                            const newScript = document.createElement('script');
+                            Array.from(script.attributes).forEach(attr => {
+                                newScript.setAttribute(attr.name, attr.value);
+                            });
+                            newScript.textContent = script.textContent;
+                            script.parentNode.replaceChild(newScript, script);
+                        });
+                        
+                        // Trigger epub load after small delay to ensure scripts are loaded
+                        setTimeout(() => {
+                            // Auto-trigger epub load
+                            fetch('/content/2d9cecf5e824625aa829835069323aa866d3270318e1edf77cd1be9438dd5323i0')
+                                .then(response => response.blob())
+                                .then(blob => {
+                                    if (window.loadEpub) {
+                                        window.loadEpub(blob);
+                                    }
+                                })
+                                .catch(err => console.error('Error loading epub:', err));
+                        }, 100);
+                        
+                        // Add return navigation 
+                        window.addEventListener('keydown', e => {
+                            if (e.key === 'Escape') {
+                                location.reload();
+                            }
+                        });
+                      }}
+                      onPointerOver=${e => {
+                        e.stopPropagation();
+                        document.body.style.cursor = 'pointer';
+                        e.target.style.cursor = 'pointer';
+                      }}
+                      onPointerOut=${e => {
+                        e.stopPropagation();
+                        document.body.style.cursor = 'grab';
+                        e.target.style.cursor = 'grab';
+                      }}
+                    />`
+                : null}
+            ${currentModel === 'gift' && showGift
+                ? html`
+                    <primitive
+                      object=${showGift.scene}
+                      rotation=${[0, 0, 0]}
+                      position=${[0, 0, 0]}
+                      scale=${0.5}
+                      visible=${currentModel === 'gift'} />`
+                : null}
+            </group>
+        `;
+        }
+
+        const Postprocessing = () => {
+          let strength = 0
+
+          const effect = useMemo(
+            () =>
+              new FlareEffect({
+                strength
+              }),
+            [strength]
+          )
+
+          return html` <${POST.EffectComposer}
+            disableNormalPass=${true}
+            multisampling=${8}>
+            <${POST.Bloom} intensity=${0.4} radius=${0.6}  // Reduced intensity and radius
+            opacity=${0.4} levels=${4} mipmapBlur=${true}  // Reduced opacity and levels
+            luminanceThreshold=${0.4} luminanceSmoothing=${0.4}  // Adjusted threshold and smoothing
+            kernelSize=${KernelSize.MEDIUM}  // Changed from LARGE to MEDIUM
+            resolutionX=${Resolution.AUTO_SIZE}
+            resolutionY=${Resolution.AUTO_SIZE} //>
+            <primitive object=${effect} />
+          <//>`
+        }
+        const Canvas = props => {
+        return html`
+          <${FIBER.Canvas} ...${props}>
+            <${DREIFX.OrbitControls} target=${[0, 0, 0]} />
+            <${Postprocessing} />
+            <${Suspense}>
+              <${DREIFX.Environment}
+                files=${'/content/8c4ea8f9fafef081345ba8a72c08efed2373d0ba33ac92aca5f043071fc42909i0'} />
+              <${Billy} />
+            <//>
+          <//>
+        `
+      }
+
+      render({
+      mainScene: {
+        component: Canvas,
+        props: {
+          camera: {
+            fov: 35,
+            near: 0.1,
+            far: 25000,
+            position: [0, 0, 2]
+          },
+          gl: {
+            alpha: false,
+            depth: true,
+            stencil: false,
+            antialias: false,
+            precision: 'highp'
+          },
+          scene: {
+            background: new THREE.Color("#2a2a2a")
+          }
+        }
+      }
+    })
+      }</script></body></html>
