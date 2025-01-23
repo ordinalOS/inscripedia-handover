@@ -10,25 +10,30 @@ This package provides an interactive 3D book viewing experience with multiple mo
 
 ## File Structure
 
+```
 EPUB-ORDINAL/
-├── ordinal-view.html
-├── wrapper-preview.html
-├── read.html
-├── read.css
-├── docs.html
-├── zip.min.js
-├── ordinal/
-│   ├── reader-ordinal.html
-│   ├── reader-ordinal-min.html
-│   └── wrapper-ordinal-min.html
-├── content/
-│   ├── book-inscripedia.glb
-│   ├── gift-inscripedia.glb
-│   └── cover[1-5].jpg
-└── V1/
-   ├── epub-v1.html
-   ├── test.epub
-   └── zip.min.js
+├── ordinal-view.html     # preview ordinal frame
+├── wrapper-preview.html  # web2 preview with controls
+├── read.html            # web2 epub reader
+├── read.css            # web2 epub reader styling
+├── docs.html           # wrapper ordinal generator
+├── zip.min.js          # File compression for EPUB handling
+│
+├── ordinal/            # Core ordinal rendering components test here: https://ordinals.com/inscription/33633842
+│   ├── reader-ordinal.html        # Full-featured ordinal reader
+│   ├── reader-ordinal-min.html    
+│   └── wrapper-ordinal-min.html   
+│
+├── content/            # 3D models and textures
+│   ├── book-inscripedia.glb       # Main book 3D model
+│   ├── gift-inscripedia.glb       # Gift presentation model
+│   └── cover[1-5].jpg            # Dynamic cover textures
+│
+└── V1/                 # Legacy version support
+    ├── epub-v1.html              # Original EPUB viewer
+    ├── test.epub                 # Sample EPUB for testing
+    └── zip.min.js               # Legacy compression utility
+```
 
 ## Key Features
 - 3D Book & Gift Models
