@@ -42,24 +42,6 @@ EPUB-ORDINAL/
   - Dynamic cover texture switching (5 different covers)
   - Custom material shaders for visual effects
 
-- Visual Effects
-  - Dynamic snow particle system
-  - Star field background with warping effect
-  - Bloom post-processing
-  - Custom flare shader effect
-  - Smooth camera transitions and zooming
-
-- Mobile Support
-  - Touch-friendly controls
-  - Responsive mobile UI buttons
-  - Adaptive display for touch devices
-
-- Interactive Controls
-  - Orbit controls for model inspection
-  - Keyboard shortcuts for features
-  - Click/touch interactions for model switching
-  - Spacebar activated warp effect
-
 ## Technical Stack
 - Three.js for 3D rendering
 - Custom WebGL shaders
@@ -71,6 +53,7 @@ EPUB-ORDINAL/
 The package is designed to be served as a static web application. The main entry point is `web2-preview.html` which loads all required dependencies and initializes the 3D viewer.
 
 ### Controls
+├── wrapper-preview.html  # web2 preview with controls
 - `G` - Switch between book and gift models
 - `S` - Toggle snow effect
 - `1-5` - Switch book covers
