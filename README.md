@@ -35,6 +35,16 @@ EPUB-ORDINAL/
     └── zip.min.js               # Legacy compression utility
 ```
 
+### Wrapper Preview Controls
+
+├── wrapper-preview.html 
+
+- `G` - Switch between book and gift models
+- `S` - Toggle snow effect
+- `1-5` - Switch book covers
+- `Spacebar` - Activate warp effect
+- Mouse/Touch - Orbit camera
+
 ## Key Features
 - 3D Book & Gift Models
   - Switchable between book and gift presentation models
@@ -49,35 +59,6 @@ EPUB-ORDINAL/
 - DRACO loader for model compression
 - Post-processing effects pipeline
 
-## Usage
-The package is designed to be served as a static web application. The main entry point is `web2-preview.html` which loads all required dependencies and initializes the 3D viewer.
 
-### Controls
-├── wrapper-preview.html  # web2 preview with controls
-- `G` - Switch between book and gift models
-- `S` - Toggle snow effect
-- `1-5` - Switch book covers
-- `Spacebar` - Activate warp effect
-- Mouse/Touch - Orbit camera
+# PART 2 : PDF-READER
 
-### Mobile Controls
-Mobile devices display an additional control panel with buttons for:
-- Model switching
-- Snow toggle
-- Cover changing
-
-## Dependencies
-- THREE.js
-- POSTPROCESSING
-- DRACOLoader
-- GLTFLoader
-- Custom ordengine script
-
-## Performance Considerations
-- Optimized material settings for mobile
-- Reduced particle counts for snow effect
-- Adaptive post-processing quality
-- Frustum culling disabled for consistent rendering
-
-## Notes
-This package is designed for web delivery of interactive 3D content with a focus on performance and user experience across different devices.
