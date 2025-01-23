@@ -2,7 +2,7 @@
 
 Repository for Inscripedia project handover. 
 
-# EPUB-ORDINAL Package
+# PART 1 : EPUB-ORDINAL
 A web-based 3D interactive book viewer with dynamic content loading capabilities.
 
 ## Overview
@@ -10,17 +10,25 @@ This package provides an interactive 3D book viewing experience with multiple mo
 
 ## File Structure
 
-├── EPUB-ORDINAL/ # 3D Book Viewer Package
-│ ├── web2-preview.html # Main viewer application
-│ ├── read.html # Book reading interface
-│ ├── content/ # Asset directory
-│ │ ├── book-inscripedia.glb # 3D book model
-│ │ ├── gift-inscripedia.glb # 3D gift model
-│ │ └── cover[1-5].jpg # Book cover textures
-│ └── assets/ # Additional resources
-│ ├── fonts/ # Custom typography
-│ └── textures/ # Material textures
-
+├── EPUB-ORDINAL/
+│   ├── ordinal-view.html
+│   ├── wrapper-preview.html
+│   ├── read.html
+│   ├── read.css
+│   ├── docs.html
+│   ├── zip.min.js
+│   ├── ordinal/
+│   │   ├── reader-ordinal.html
+│   │   ├── reader-ordinal-min.html
+│   │   └── wrapper-ordinal-min.html
+│   ├── content/
+│   │   ├── book-inscripedia.glb
+│   │   ├── gift-inscripedia.glb
+│   │   └── cover[1-5].jpg
+│   └── V1/
+│       ├── epub-v1.html
+│       ├── test.epub
+│       └── zip.min.js
 
 ## Key Features
 - 3D Book & Gift Models
